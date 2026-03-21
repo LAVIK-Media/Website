@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* LAVIK luxury green system */
+  --bg: #050706;
+  --bg-2: #0a1411;
+  --surface: #0f1f1a;
+  --elevated: #132822;
+  --green: #0f7a5a;
+  --green-hover: #159a73;
+  --green-light: #1fbf8f;
+  --green-dim: #2f5d4e;
+  --green-muted: #4e7a6a;
+  --text: #f2f5f4;
+  --text-sub: #9bafa8;
+  --text-faint: #6f8580;
+  --metal: #d9e2df;
+  --metal-dim: #7a8f89;
+  --border: #1c2b26;
+  --divider: #1a2622;
+  --glow: rgba(15, 122, 90, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green-dim);
+}
+
+/* Selection */
+::selection {
+  background: rgba(15, 122, 90, 0.3);
+  color: #f2f5f4;
+}
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid rgba(15, 122, 90, 0.65);
+  outline-offset: 2px;
+}
+
+@layer components {
+  /* Glass card base — green-tinted dark surface */
+  .glass-card {
+    background: rgba(7, 10, 8, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid #1c2b26;
+  }
+
+  .glass-card-hover {
+    background: rgba(7, 10, 8, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid #1c2b26;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-card-hover:hover {
+    background: rgba(10, 15, 12, 0.88);
+    border-color: rgba(15, 122, 90, 0.22);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(15, 122, 90, 0.08);
+  }
+
+  /* Gradient text — silver-to-green, luxury watch dial feel */
+  .gradient-text {
+    background: linear-gradient(135deg, #1fbf8f 0%, #7a8f89 55%, #d9e2df 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-metal {
+    background: linear-gradient(135deg, #d9e2df 0%, #7a8f89 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Section layout */
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  @screen lg {
+    .section-padding {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+  }
+
+  .container-custom {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  @screen sm {
+    .container-custom {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* Section label */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    border: 1px solid #1c2b26;
+    background: rgba(212, 226, 223, 0.04);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6f8580;
+  }
+
+  /* Grid overlays */
+  .dot-grid {
+    background-image: radial-gradient(
+      rgba(31, 191, 143, 0.05) 1px,
+      transparent 1px
+    );
+    background-size: 30px 30px;
+  }
+
+  .line-grid {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Glow */
+  .glow-green {
+    box-shadow: 0 0 60px rgba(15, 122, 90, 0.18);
+  }
+
+  /* Divider */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #7a8f89, transparent);
+  }
+
+  /* Hero display text — cinematic scale */
+  .hero-display {
+    font-size: clamp(2.5rem, 7vw, 7.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+}
