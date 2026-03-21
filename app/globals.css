@@ -193,6 +193,60 @@ h6 {
     letter-spacing: -0.025em;
   }
 
+  /* Hero headline: soft rounded bevel (light blur, no heavy drop) + rim from right */
+  .hero-headline-3d {
+    color: #f2f5f4;
+    -webkit-text-stroke: 0.4px rgba(3, 5, 4, 0.18);
+    text-shadow:
+      0 0.02em 0.08em rgba(0, 0, 0, 0.22),
+      0 0.05em 0.18em rgba(0, 0, 0, 0.12),
+      0 0 0.55em rgba(255, 255, 255, 0.06),
+      0.035em 0 0.45em rgba(31, 191, 143, 0.12);
+  }
+
+  /* Alpine hero — restrained shadows, cold accent, readable on video */
+  .hero-headline-alpine {
+    color: #f2f5f4;
+    text-shadow:
+      0 0.08em 0.35em rgba(0, 0, 0, 0.45),
+      0 0.02em 0.06em rgba(0, 0, 0, 0.55);
+  }
+
+  .hero-headline-alpine-accent {
+    color: var(--green-light);
+    text-shadow:
+      0 0.08em 0.35em rgba(0, 0, 0, 0.45),
+      0 0 0.45em rgba(15, 122, 90, 0.35);
+  }
+
+  /* Subtle glass chip — not “liquid glass” heavy */
+  .hero-glass-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(31, 61, 43, 0.35);
+    background: rgba(5, 8, 6, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7a8a84;
+  }
+
+  .hero-headline-accent-3d {
+    color: #1fbf8f;
+    -webkit-text-stroke: 0.4px rgba(0, 40, 30, 0.14);
+    text-shadow:
+      0 0.025em 0.1em rgba(0, 0, 0, 0.18),
+      0 0.055em 0.2em rgba(0, 0, 0, 0.1),
+      0 0 0.5em rgba(160, 235, 205, 0.2),
+      0.04em 0 0.42em rgba(31, 191, 143, 0.22);
+  }
+
   /* Noise texture overlay */
   .noise-overlay {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");

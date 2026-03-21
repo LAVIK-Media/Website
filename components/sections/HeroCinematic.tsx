@@ -1,19 +1,52 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import dynamic from "next/dynamic";
-import SparklesEffect from "@/components/ui/SparklesEffect";
 import ShimmerButton from "@/components/ui/ShimmerButton";
 
-const HeroShader = dynamic(() => import("@/components/ui/HeroShader"), {
-  ssr: false,
-});
+/** Hero clip in public/Video/. Env overrides. */
+const HERO_VIDEO_SOURCES = [
+  process.env.NEXT_PUBLIC_HERO_VIDEO_URL,
+  "/Video/aerial-view-of-austrian-mountain-range-in-vorarlbe-2025-12-17-23-40-55-utc.mp4",
+  "/Video/aerial-view-of-austrian-mountain-range-in-vorarlbe-2025-12-17-23-40-55-utc.mov",
+  "/Video/hero.mp4",
+  "/videos/hero-alpine.mp4",
+  "https://videos.pexels.com/video-files/10976054/10976054-hd_1920_1080_25fps.mp4",
+  "https://videos.pexels.com/video-files/10976054/10976054-hd_1280_720_25fps.mp4",
+].filter(Boolean) as string[];
 
 const ease = [0.21, 0.47, 0.32, 0.98] as const;
 
 export default function HeroCinematic() {
   const reducedMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [srcIndex, setSrcIndex] = useState(0);
+
+  const showVideo =
+    !reducedMotion && !videoFailed && HERO_VIDEO_SOURCES.length > 0;
+  const currentSrc = HERO_VIDEO_SOURCES[srcIndex] ?? "";
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || reducedMotion || !showVideo) return;
+    v.play().catch(() => {});
+  }, [reducedMotion, currentSrc, showVideo]);
 
   const animate = (delay: number, y = 40) =>
     reducedMotion
@@ -21,90 +54,172 @@ export default function HeroCinematic() {
       : {
           initial: { opacity: 0, y },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.7, delay, ease },
+          transition: { duration: 0.75, delay, ease },
         };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#030504]">
-      {/* WebGL shader background */}
-      <HeroShader className="absolute inset-0 z-0" />
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#060a09]"
+    >
+      {/* Cinematic background: video or cold abstract fallback */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {showVideo ? (
+          <motion.div
+            className="absolute inset-0 h-[115%] w-full -top-[7%]"
+            style={{ y: videoY, scale: videoScale }}
+          >
+            <video
+              key={currentSrc}
+              ref={videoRef}
+              className="absolute left-1/2 top-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center"
+              style={{
+                filter: "saturate(0.58) brightness(0.52) contrast(1.08)",
+              }}
+              src={currentSrc}
+              muted
+              loop
+              playsInline
+              autoPlay
+              preload="metadata"
+              onError={() => {
+                if (srcIndex < HERO_VIDEO_SOURCES.length - 1) {
+                  setSrcIndex((i) => i + 1);
+                } else {
+                  setVideoFailed(true);
+                }
+              }}
+            />
+          </motion.div>
+        ) : null}
 
-      {/* Noise texture */}
+        {/* Abstract alpine fallback — no photo look, cold & minimal */}
+        {!showVideo ? (
+          <div
+            className="absolute inset-0"
+            aria-hidden="true"
+            style={{
+              background: `
+                radial-gradient(ellipse 120% 80% at 50% 0%, #1a2822 0%, transparent 55%),
+                radial-gradient(ellipse 90% 50% at 70% 100%, #0a1210 0%, transparent 50%),
+                linear-gradient(180deg, #141f1c 0%, #0a100e 38%, #050706 100%)
+              `,
+            }}
+          />
+        ) : null}
+
+        {/* Cold green grade + desat overlay (no warm tones) */}
+        <div
+          className="absolute inset-0 bg-[#1a2e24]/[0.22] mix-blend-soft-light"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[#1f3d2b]/[0.12] via-transparent to-black/70"
+          aria-hidden="true"
+        />
+        {/* Readable center: calm mid, darker foreground */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/35 to-black/25"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-black/35"
+          aria-hidden="true"
+        />
+        {/* Top third: slightly more weight on peaks */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-transparent h-[38%]"
+          aria-hidden="true"
+        />
+
+        {/* Subtle fog drift (CSS only — very low motion) */}
+        {!reducedMotion && (
+          <motion.div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] opacity-[0.12]"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(200,210,205,0.07) 0%, transparent 100%)",
+            }}
+            animate={{ x: ["-2%", "2%", "-2%"] }}
+            transition={{
+              duration: 28,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            aria-hidden="true"
+          />
+        )}
+      </div>
+
+      {/* Film grain — minimal */}
       <div
-        className="absolute inset-0 z-[1] noise-overlay pointer-events-none"
+        className="absolute inset-0 z-[1] noise-overlay pointer-events-none opacity-[0.35]"
         aria-hidden="true"
       />
 
-      {/* Grid overlay — very subtle */}
+      {/* Grid — very subtle */}
       <div
-        className="absolute inset-0 z-[2] line-grid pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 z-[2] line-grid pointer-events-none opacity-[0.025]"
         aria-hidden="true"
       />
-
-      {/* Sparkles */}
-      <SparklesEffect className="absolute inset-0 z-[3]" />
 
       {/* Content */}
       <div className="relative z-10 container-custom w-full pt-32 pb-24 lg:pt-40 lg:pb-32 flex flex-col items-center text-center">
-        {/* Section label */}
         <motion.div {...animate(0, 20)} className="mb-8">
-          <div className="section-label">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1FBF8F] animate-pulse" />
-            Webdesign · Entwicklung · Betreuung
+          <div className="hero-glass-label">
+            <span
+              className="h-1 w-1 shrink-0 rounded-full bg-[#5a7d6a]"
+              aria-hidden="true"
+            />
+            Design · Entwicklung · Betreuung
           </div>
         </motion.div>
 
-        {/* Headline */}
-        <div className="relative mb-6 max-w-5xl">
+        <div className="relative mb-6 w-full max-w-5xl">
           <motion.h1
-            {...animate(0.1)}
-            className="relative hero-display font-display font-bold text-[#F2F5F4] z-10"
+            {...animate(0.08)}
+            className="relative z-10 hero-display font-display font-bold px-2 hero-headline-alpine"
           >
-            Webauftritte, die
-            <br />
-            <span className="gradient-text">überzeugen.</span>
+            Digitale Auftritte, die{" "}
+            <span className="hero-headline-alpine-accent">überzeugen.</span>
           </motion.h1>
         </div>
 
-        {/* Subtitle */}
         <motion.p
-          {...animate(0.28, 24)}
-          className="text-lg md:text-xl text-[#9BAFA8] leading-relaxed mb-12 max-w-xl"
+          {...animate(0.22, 24)}
+          className="mb-12 max-w-lg text-base md:text-lg leading-relaxed text-[#9ba8a3]"
         >
-          Hochwertige Websites für Unternehmen in Tirol – individuell gestaltet,
-          technisch sauber, mit persönlicher Betreuung.
+          Individuelles Design. Technisch sauber. Persönlich betreut.
         </motion.p>
 
-        {/* CTA */}
-        <motion.div {...animate(0.45, 20)}>
-          <ShimmerButton href="/kontakt" size="lg">
-            Projekt anfragen
-            <ArrowRight className="w-4 h-4" />
+        <motion.div {...animate(0.38, 20)}>
+          <ShimmerButton href="/kontakt" size="lg" variant="quiet">
+            Projekt starten
+            <ArrowRight className="h-4 w-4 opacity-90" />
           </ShimmerButton>
         </motion.div>
       </div>
 
-      {/* Bottom edge gradient — smooth transition to next section */}
+      {/* Transition to next section */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050706] to-transparent z-[4] pointer-events-none"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[4] h-28 bg-gradient-to-t from-[#050706] to-transparent"
         aria-hidden="true"
       />
 
-      {/* Scroll indicator */}
       <motion.div
         initial={reducedMotion ? {} : { opacity: 0 }}
         animate={reducedMotion ? {} : { opacity: 1 }}
-        transition={{ delay: 0.9 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        transition={{ delay: 0.85 }}
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
         aria-hidden="true"
       >
         <motion.div
-          animate={reducedMotion ? {} : { y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          animate={reducedMotion ? {} : { y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
           className="flex flex-col items-center gap-1"
         >
-          <div className="w-px h-8 bg-gradient-to-b from-[#1FBF8F]/30 to-transparent" />
-          <div className="w-1 h-1 rounded-full bg-[#1FBF8F]/30" />
+          <div className="h-8 w-px bg-gradient-to-b from-[#5a7d6a]/25 to-transparent" />
+          <div className="h-1 w-1 rounded-full bg-[#5a7d6a]/30" />
         </motion.div>
       </motion.div>
     </section>
