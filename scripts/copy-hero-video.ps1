@@ -1,4 +1,5 @@
 # Kopiert Video(s) von Desktop\videos oder Desktop\Videos nach public\Video
+# (optional für lokale Entwicklung; Produktion nutzt R2 — siehe HeroCinematic.tsx)
 $ErrorActionPreference = "Stop"
 # scripts/ -> Projektroot (Ordner mit package.json)
 $projectRoot = Split-Path $PSScriptRoot -Parent

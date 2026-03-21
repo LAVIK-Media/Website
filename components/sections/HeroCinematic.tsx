@@ -11,11 +11,13 @@ import { ArrowRight } from "lucide-react";
 import ShimmerButton from "@/components/ui/ShimmerButton";
 import { easeOutExpo } from "@/lib/motion";
 
-/** Hero clip in public/Video/. Env overrides. */
+/** Default: R2 (Cloudflare). Override with NEXT_PUBLIC_HERO_VIDEO_URL. Local fallbacks optional. */
+const HERO_VIDEO_R2 =
+  "https://pub-63f8284b4d2e4e3eb41bbfdaf0287946.r2.dev/aerial-view-of-austrian-mountain-range-in-vorarlbe-2025-12-17-23-40-55-utc.mp4";
+
 const HERO_VIDEO_SOURCES = [
   process.env.NEXT_PUBLIC_HERO_VIDEO_URL,
-  "/Video/aerial-view-of-austrian-mountain-range-in-vorarlbe-2025-12-17-23-40-55-utc.mp4",
-  "/Video/aerial-view-of-austrian-mountain-range-in-vorarlbe-2025-12-17-23-40-55-utc.mov",
+  HERO_VIDEO_R2,
   "/Video/hero.mp4",
   "/videos/hero-alpine.mp4",
   "https://videos.pexels.com/video-files/10976054/10976054-hd_1920_1080_25fps.mp4",

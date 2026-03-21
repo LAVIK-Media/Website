@@ -204,11 +204,12 @@ export default function DatenschutzPage() {
                   geltenden Fristen, sofern relevant).
                 </p>
                 <p className="mt-3 text-xs text-[#6F8580]">
-                  <strong className="text-[#6F8580]">Technik:</strong> Das
-                  Formular ist derzeit als Demonstration implementiert (simulierte
-                  Übermittlung). Vor Produktivbetrieb muss eine sichere
-                  Übertragung (HTTPS) und ein Endpunkt (E-Mail-Versand,
-                  Ticket-System) dokumentiert und technisch umgesetzt werden.
+                  <strong className="text-[#6F8580]">Technik:</strong> Die
+                  Übermittlung erfolgt verschlüsselt (HTTPS) an unseren Server;
+                  die Zustellung der Anfrage per E-Mail kann über einen
+                  Auftragsverarbeiter (z. B. Resend) erfolgen. Bitte ergänzen
+                  Sie den Auftragsverarbeitungsvertrag mit dem jeweiligen
+                  Anbieter in Ihrer Dokumentation.
                 </p>
               </div>
 

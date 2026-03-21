@@ -76,6 +76,7 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [privacyAcknowledged, setPrivacyAcknowledged] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const set = (key: keyof typeof form) => (v: string) =>
     setForm((f) => ({ ...f, [key]: v }));
@@ -84,10 +85,31 @@ export default function Contact() {
     e.preventDefault();
     if (!privacyAcknowledged) return;
     setLoading(true);
-    // Simulate async submission — replace with real backend / form service
-    await new Promise((r) => setTimeout(r, 1200));
-    setLoading(false);
-    setSubmitted(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = (await res.json().catch(() => ({}))) as {
+        message?: string;
+      };
+      if (!res.ok) {
+        setError(
+          data.message ??
+            "Senden fehlgeschlagen. Bitte versuchen Sie es später erneut."
+        );
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError(
+        "Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung oder schreiben Sie uns direkt per E-Mail."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -327,11 +349,51 @@ export default function Contact() {
                     />
                   </div>
 
+                  {error && (
+                    <p
+                      role="alert"
+                      className="text-sm text-red-300/95 text-center bg-red-950/25 border border-red-900/40 rounded-xl px-4 py-3 leading-relaxed"
+                    >
+                      {error}
+                    </p>
+                  )}
+
+                  <div className="flex items-start gap-3 rounded-xl border border-[#1C2B26] bg-[#0F1F1A]/30 p-4">
+                    <input
+                      id="privacy-ack"
+                      type="checkbox"
+                      checked={privacyAcknowledged}
+                      onChange={(e) =>
+                        setPrivacyAcknowledged(e.target.checked)
+                      }
+                      className="mt-1 h-4 w-4 shrink-0 rounded border-[#1C2B26] bg-[#0F1F1A] text-[#0F7A5A] focus:ring-[#0F7A5A]/40"
+                      required
+                    />
+                    <label
+                      htmlFor="privacy-ack"
+                      className="text-xs text-[#9BAFA8] leading-relaxed cursor-pointer"
+                    >
+                      Ich habe die{" "}
+                      <a
+                        href="/datenschutz"
+                        className="text-[#1FBF8F] hover:text-[#2FD4A4] underline underline-offset-2"
+                      >
+                        Datenschutzerklärung
+                      </a>{" "}
+                      zur Kenntnis genommen und verstanden, wie meine Angaben
+                      verarbeitet werden.{" "}
+                      <span className="text-[#1FBF8F]">*</span>
+                    </label>
+                  </div>
+
                   <ShimmerButton
                     type="submit"
                     size="lg"
-                    className={cn("w-full justify-center", loading && "opacity-70")}
-                    disabled={loading}
+                    className={cn(
+                      "w-full justify-center",
+                      (loading || !privacyAcknowledged) && "opacity-70"
+                    )}
+                    disabled={loading || !privacyAcknowledged}
                   >
                     {loading ? (
                       "Wird gesendet..."
@@ -344,9 +406,8 @@ export default function Contact() {
                   </ShimmerButton>
 
                   <p className="text-[11px] text-[#6F8580] text-center">
-                    Pflichtfelder sind mit * gekennzeichnet. Übermittlung nur
-                    über verschlüsselte Verbindung (HTTPS), sobald das Formular
-                    produktiv an einen Server angebunden ist.
+                    Pflichtfelder sind mit * gekennzeichnet. Die Übermittlung
+                    erfolgt verschlüsselt (HTTPS).
                   </p>
                 </form>
               )}

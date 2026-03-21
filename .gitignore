@@ -1,9 +1,18 @@
 node_modules
 
+# Env (Secrets)
+.env
+.env.local
+.env*.local
+
 # Next.js
 .next/
 out/
 *.tsbuildinfo
 
-# Original-Video (Kopie für den Build liegt unter public/Video/)
+# Quell-Videos (lokal, nicht im Repo)
 Videos/
+
+# Große Hero-Clips (Produktion: R2; optional lokal per copy-hero-video)
+public/Video/*.mp4
+public/Video/*.mov
