@@ -3,231 +3,455 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlassCard from "@/components/ui/GlassCard";
 import ShimmerButton from "@/components/ui/ShimmerButton";
 import {
-  Palette,
-  Code2,
-  RefreshCw,
-  Target,
-  Search,
-  Shield,
   CheckCircle2,
   ArrowRight,
+  Sparkles,
+  TrendingUp,
+  Gem,
+  Building2,
+  Code2,
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Leistungen",
+  title: "Leistungen & Pakete",
   description:
-    "Webdesign, Webentwicklung, SEO und Hosting für lokale Unternehmen in Tirol. Alle Leistungen von LAVIK Media im Überblick.",
+    "Transparente Pakete von 899 € bis Business+ – Webdesign & Entwicklung für Tirol. Custom-Projekte auf Anfrage. LAVIK Media.",
 };
 
-const services = [
+type Tier = {
+  id: string;
+  name: string;
+  /** Festpreis in EUR oder null bei Custom */
+  priceEur: number | null;
+  priceNote?: string;
+  tagline: string;
+  features: string[];
+  accent: "sky" | "emerald" | "violet" | "rose" | "zinc";
+  icon: typeof Sparkles;
+  badge: string;
+};
+
+const tiers: Tier[] = [
   {
-    id: "webdesign",
-    icon: Palette,
-    title: "Webdesign",
-    subtitle: "Individuelle Gestaltung, die überzeugt",
-    desc: "Ein professionelles Design ist mehr als Ästhetik – es kommuniziert Ihre Werte, baut Vertrauen auf und leitet Besucher zu einer Handlung. Wir gestalten jede Website von Grund auf: keine Templates, kein Kompromiss.",
+    id: "starter",
+    name: "Starter",
+    priceEur: 899,
+    tagline: "Für kleine lokale Businesses, die einfach online sein wollen.",
     features: [
-      "Individuelles Designkonzept",
-      "Mobile-First Ansatz",
-      "Konsistente visuelle Identität",
-      "Klare Nutzerführung und UX",
-      "Prototypen und Designabnahme",
-    ],
-    color: "primary",
-  },
-  {
-    id: "entwicklung",
-    icon: Code2,
-    title: "Webentwicklung",
-    subtitle: "Saubere Technik für dauerhaften Erfolg",
-    desc: "Moderne Websites brauchen modernes Fundament. Wir entwickeln mit Next.js, TypeScript und Tailwind CSS – schnell, sicher, wartbar und auf echten Geräten getestet.",
-    features: [
-      "Next.js & React Entwicklung",
-      "TypeScript für stabile Codebase",
-      "Optimierte Ladezeiten",
-      "Barrierefreie Umsetzung",
-      "Cross-Browser & Device Tests",
-    ],
-    color: "secondary",
-  },
-  {
-    id: "relaunch",
-    icon: RefreshCw,
-    title: "Website-Relaunch",
-    subtitle: "Modernisierung mit Strategie",
-    desc: "Ihre bestehende Website ist veraltet, nicht mobiloptimiert oder verliert Anfragen? Wir analysieren den Status quo und entwickeln einen gezielten Relaunch – optisch und technisch.",
-    features: [
-      "Bestandsanalyse & Strategie",
-      "Komplette Neugestaltung",
-      "SEO-Weiterleitungen & Migration",
-      "Inhaltliche Überarbeitung",
-      "Nahtloser Übergang ohne Downtime",
-    ],
-    color: "secondary",
-  },
-  {
-    id: "landingpages",
-    icon: Target,
-    title: "Landingpages",
-    subtitle: "Fokussiert auf Conversion",
-    desc: "Eine Landingpage hat ein Ziel: Besucher zu einer konkreten Handlung zu bewegen. Wir konzipieren und entwickeln zielgerichtete Seiten, die funktionieren.",
-    features: [
-      "Klares Conversion-Konzept",
-      "A/B-Test-fähige Struktur",
+      "Onepager (bis 5 Sections)",
+      "Modernes Design (kein Template-Müll)",
+      "Mobile optimiert",
+      "DSGVO-Basic-Setup",
+      "Kontaktformular",
       "Schnelle Ladezeiten",
-      "Formularintegration",
-      "Analytics-ready",
     ],
-    color: "primary",
+    accent: "sky",
+    icon: Sparkles,
+    badge: "Lead Magnet",
   },
   {
-    id: "seo",
-    icon: Search,
-    title: "SEO-Grundlagen",
-    subtitle: "Gefunden werden, wo es zählt",
-    desc: "Technisches SEO und lokale Sichtbarkeit sind kein Luxus – sie sind die Grundlage dafür, dass Ihre Website von potenziellen Kunden gefunden wird. Wir bauen das von Anfang an mit ein.",
+    id: "growth",
+    name: "Growth",
+    priceEur: 1490,
+    tagline: "Für Unternehmen, die Kunden gewinnen wollen.",
     features: [
-      "Technische SEO-Optimierung",
-      "Lokale SEO-Grundlagen",
-      "Metadaten & Open Graph",
-      "Seitengeschwindigkeit (Core Web Vitals)",
-      "Google Search Console Setup",
+      "3–5 Seiten (Start, Leistungen, Über uns, Kontakt …)",
+      "Struktur + conversion-orientiertes Layout",
+      "Basic SEO-Setup",
+      "Individuelles Design (kein 0815-Look)",
+      "Performance optimiert",
     ],
-    color: "metal",
+    accent: "emerald",
+    icon: TrendingUp,
+    badge: "Beliebtestes Paket",
   },
   {
-    id: "wartung",
-    icon: Shield,
-    title: "Wartung & Hosting",
-    subtitle: "Zuverlässig nach dem Launch",
-    desc: "Wir verschwinden nicht nach dem Launch. Mit unseren Wartungspaketen bleibt Ihre Website sicher, aktuell und performant – dauerhaft und verlässlich.",
+    id: "pro",
+    name: "Pro",
+    priceEur: 2990,
+    tagline: "Für Unternehmen, die ernsthaft skalieren wollen.",
     features: [
-      "Zuverlässiges Hosting mit SSL",
-      "Regelmäßige Updates",
-      "Automatische Backups",
-      "Inhaltsänderungen auf Anfrage",
-      "Schneller Support",
+      "5–10 Seiten",
+      "High-End UI/UX (Animationen, Effekte)",
+      "Conversion-Fokus (Call-to-Actions, Funnels)",
+      "Erweiterte SEO-Grundlagen",
+      "Branding-Feinschliff",
+      "Ladezeiten + Core Web Vitals optimiert",
     ],
-    color: "primary",
+    accent: "violet",
+    icon: Gem,
+    badge: "High-End",
+  },
+  {
+    id: "business",
+    name: "Business+",
+    priceEur: 5490,
+    tagline: "Für starke Unternehmen und Premium-Auftritte.",
+    features: [
+      "Alles aus Pro",
+      "Individuelle Features (z. B. Buchungssysteme, leichte Dashboards)",
+      "Backend-Anbindung (CMS oder einfache Tools)",
+      "Content-Struktur + Beratung",
+      "Tracking-Setup (Analytics u. a.)",
+    ],
+    accent: "rose",
+    icon: Building2,
+    badge: "Premium",
+  },
+  {
+    id: "custom",
+    name: "Custom / Scale",
+    priceEur: null,
+    priceNote: "Auf Anfrage",
+    tagline: "Für komplexe Projekte und individuelle Systeme.",
+    features: [
+      "Web-App / komplexe Backend-Systeme",
+      "Individuelle Logik",
+      "API-Integrationen",
+      "Automationen",
+      "Skalierbare Architektur",
+    ],
+    accent: "zinc",
+    icon: Code2,
+    badge: "Individuell",
   },
 ];
 
-const colorMap: Record<string, { bg: string; border: string; icon: string }> = {
-  primary: {
-    bg: "bg-[#0F7A5A]/[0.08]",
-    border: "border-[#0F7A5A]/15",
+const upsells = [
+  {
+    title: "SEO-Setup komplett",
+    range: "+300 € – 800 €",
+  },
+  {
+    title: "Texte (Copywriting)",
+    range: "+200 € – 1.000 €",
+  },
+  {
+    title: "Wartung / Hosting (monatlich)",
+    range: "29 € – 99 € / Monat",
+  },
+  {
+    title: "Schnellere Lieferung (Express)",
+    range: "+20 – 30 %",
+  },
+  {
+    title: "Mehrsprachigkeit",
+    range: "+300 € – 1.000 €",
+  },
+  {
+    title: "Content-Upload (Bilder, Texte einpflegen)",
+    range: "+150 € – 500 €",
+  },
+];
+
+const accentStyles: Record<
+  Tier["accent"],
+  { ring: string; iconBg: string; icon: string; badge: string; price: string }
+> = {
+  sky: {
+    ring: "ring-sky-500/25 hover:ring-sky-500/35",
+    iconBg: "bg-sky-500/10 border-sky-500/20",
+    icon: "text-sky-400",
+    badge: "text-sky-300/90 border-sky-500/25 bg-sky-500/10",
+    price: "text-sky-300",
+  },
+  emerald: {
+    ring: "ring-[#1FBF8F]/25 hover:ring-[#1FBF8F]/40",
+    iconBg: "bg-[#0F7A5A]/15 border-[#0F7A5A]/25",
     icon: "text-[#1FBF8F]",
+    badge: "text-[#1FBF8F]/90 border-[#0F7A5A]/30 bg-[#0F7A5A]/10",
+    price: "text-[#1FBF8F]",
   },
-  secondary: {
-    bg: "bg-[#2F5D4E]/[0.08]",
-    border: "border-[#2F5D4E]/15",
-    icon: "text-[#4E7A6A]",
+  violet: {
+    ring: "ring-violet-500/25 hover:ring-violet-500/35",
+    iconBg: "bg-violet-500/10 border-violet-500/20",
+    icon: "text-violet-300",
+    badge: "text-violet-300/90 border-violet-500/25 bg-violet-500/10",
+    price: "text-violet-300",
   },
-  metal: {
-    bg: "bg-[#7A8F89]/[0.10]",
-    border: "border-[#7A8F89]/15",
-    icon: "text-[#D9E2DF]",
+  rose: {
+    ring: "ring-rose-500/25 hover:ring-rose-500/35",
+    iconBg: "bg-rose-500/10 border-rose-500/20",
+    icon: "text-rose-300",
+    badge: "text-rose-300/90 border-rose-500/25 bg-rose-500/10",
+    price: "text-rose-300",
+  },
+  zinc: {
+    ring: "ring-white/10 hover:ring-white/15",
+    iconBg: "bg-white/[0.06] border-white/10",
+    icon: "text-[#9BAFA8]",
+    badge: "text-[#9BAFA8] border-white/10 bg-white/[0.04]",
+    price: "text-[#C8D9D3]",
   },
 };
+
+function formatEur(amount: number) {
+  return new Intl.NumberFormat("de-AT", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+function PriceDisplay({
+  priceEur,
+  priceNote,
+  accent,
+}: {
+  priceEur: number | null;
+  priceNote?: string;
+  accent: Tier["accent"];
+}) {
+  const a = accentStyles[accent];
+  if (priceEur === null) {
+    return (
+      <div className="mt-4">
+        <span
+          className={`font-display text-2xl font-bold tracking-tight sm:text-3xl ${a.price}`}
+        >
+          {priceNote ?? "Auf Anfrage"}
+        </span>
+      </div>
+    );
+  }
+  return (
+    <div className="mt-4">
+      <span className="font-display text-3xl font-bold tracking-tight text-[#F2F5F4] sm:text-4xl">
+        {formatEur(priceEur)}
+      </span>
+    </div>
+  );
+}
+
+function CustomTierWideCard({ tier }: { tier: Tier }) {
+  const a = accentStyles[tier.accent];
+  const Icon = tier.icon;
+  return (
+    <GlassCard
+      hover
+      id={tier.id}
+      className={`w-full ring-1 transition-[box-shadow,ring-color] duration-300 ${a.ring} bg-[#080c0b]/80 p-6 sm:p-8 lg:p-10`}
+    >
+      <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12 xl:gap-16">
+        <div className="min-w-0 shrink-0 lg:max-w-md">
+          <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+            <div
+              className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border ${a.iconBg}`}
+            >
+              <Icon className={`h-6 w-6 ${a.icon}`} strokeWidth={1.5} />
+            </div>
+            <span
+              className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider ${a.badge}`}
+            >
+              {tier.badge}
+            </span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-[#F2F5F4] sm:text-3xl">
+            {tier.name}
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-[#9BAFA8] sm:text-base">
+            {tier.tagline}
+          </p>
+          <PriceDisplay
+            priceEur={tier.priceEur}
+            priceNote={tier.priceNote}
+            accent={tier.accent}
+          />
+        </div>
+        <div className="min-w-0 flex-1 border-t border-[#1C2B26]/80 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+          <p className="mb-4 text-[11px] font-semibold uppercase tracking-wider text-[#6F8580]">
+            Leistungsumfang
+          </p>
+          <ul className="grid gap-2.5 sm:grid-cols-2 sm:gap-x-8 lg:gap-y-3">
+            {tier.features.map((f) => (
+              <li
+                key={f}
+                className="flex gap-2.5 text-sm leading-relaxed text-[#C8D9D3]"
+              >
+                <CheckCircle2
+                  className={`mt-0.5 h-4 w-4 shrink-0 ${a.icon}`}
+                />
+                {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </GlassCard>
+  );
+}
+
+const standardTiers = tiers.filter((t) => t.id !== "custom");
+const customTier = tiers.find((t) => t.id === "custom")!;
 
 export default function LeistungenPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="pt-36 pb-16 bg-[#050706] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-[#0F7A5A]/[0.07] via-transparent to-transparent pointer-events-none" />
-        <div className="absolute inset-0 line-grid pointer-events-none opacity-20" />
+      <section className="relative overflow-hidden bg-[#050706] pb-16 pt-32 md:pb-20 md:pt-36">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-20%,rgba(15,122,90,0.11),transparent_60%)]"
+          aria-hidden
+        />
         <div className="container-custom relative z-10">
-          <ScrollReveal>
+          <ScrollReveal blur={8} scaleFrom={0.99}>
             <div className="max-w-3xl">
               <div className="section-label mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1FBF8F]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#1FBF8F]" />
                 Leistungen
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-display font-bold tracking-tight text-[#F2F5F4] mb-5 leading-tight">
-                Was wir für Sie{" "}
-                <span className="gradient-text">umsetzen</span>
+              <h1 className="mb-5 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-bold leading-[1.1] tracking-tight text-[#F2F5F4]">
+                Pakete mit{" "}
+                <span className="gradient-text">festen Preisen</span>
               </h1>
-              <p className="text-xl text-[#9BAFA8] leading-relaxed max-w-2xl">
-                Von der Gestaltung bis zur langfristigen Betreuung – alle
-                Leistungen aus einer Hand, für lokale Unternehmen mit Anspruch.
+              <p className="max-w-2xl text-lg leading-relaxed text-[#9BAFA8]">
+                Transparent von Starter bis Business+ – und individuelle
+                Großprojekte ohne Online-Preis, dafür mit klarem Gespräch.
               </p>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Services detail */}
-      <section className="pb-24 bg-[#050706]">
+      <section className="bg-[#050706] pb-12 md:pb-16">
         <div className="container-custom">
-          <div className="space-y-8">
-            {services.map((service, i) => {
-              const c = colorMap[service.color];
-              return (
-                <ScrollReveal key={service.id} delay={i * 0.06}>
-                  <GlassCard
-                    hover
-                    className="p-8 lg:p-10"
-                    id={service.id}
+          <div className="space-y-6">
+            <div className="grid gap-6 lg:grid-cols-2">
+              {standardTiers.map((tier, i) => {
+                const a = accentStyles[tier.accent];
+                const Icon = tier.icon;
+                return (
+                  <ScrollReveal
+                    key={tier.id}
+                    delay={i * 0.05}
+                    blur={8}
+                    scaleFrom={0.98}
                   >
-                    <div className="grid lg:grid-cols-[280px_1fr] gap-8 lg:gap-12">
-                      {/* Left */}
-                      <div>
+                    <GlassCard
+                      hover
+                      id={tier.id}
+                      className={`flex h-full flex-col p-6 sm:p-8 ring-1 transition-[box-shadow,ring-color] duration-300 ${a.ring}`}
+                    >
+                      <div className="mb-4 flex items-start justify-between gap-3">
                         <div
-                          className={`w-14 h-14 rounded-2xl ${c.bg} border ${c.border} flex items-center justify-center mb-5`}
+                          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border ${a.iconBg}`}
                         >
-                          <service.icon className={`w-6 h-6 ${c.icon}`} />
+                          <Icon
+                            className={`h-6 w-6 ${a.icon}`}
+                            strokeWidth={1.5}
+                          />
                         </div>
-                        <h2 className="text-2xl font-display font-bold text-[#F2F5F4] mb-2">
-                          {service.title}
-                        </h2>
-                        <p className={`text-sm font-medium ${c.icon}`}>
-                          {service.subtitle}
-                        </p>
+                        <span
+                          className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider ${a.badge}`}
+                        >
+                          {tier.badge}
+                        </span>
                       </div>
-                      {/* Right */}
-                      <div>
-                        <p className="text-[#9BAFA8] leading-relaxed mb-7 text-base">
-                          {service.desc}
-                        </p>
-                        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
-                          {service.features.map((feat) => (
-                            <li
-                              key={feat}
-                              className="flex items-center gap-2.5 text-sm text-[#9BAFA8]"
-                            >
-                              <CheckCircle2
-                                className={`w-4 h-4 ${c.icon} flex-shrink-0`}
-                              />
-                              {feat}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </GlassCard>
-                </ScrollReveal>
-              );
-            })}
+                      <h2 className="font-display text-xl font-bold text-[#F2F5F4] sm:text-2xl">
+                        {tier.name}
+                      </h2>
+                      <p className="mt-2 text-sm leading-relaxed text-[#9BAFA8]">
+                        {tier.tagline}
+                      </p>
+                      <PriceDisplay
+                        priceEur={tier.priceEur}
+                        priceNote={tier.priceNote}
+                        accent={tier.accent}
+                      />
+                      <ul className="mt-6 flex flex-col gap-2.5 border-t border-[#1C2B26]/80 pt-6">
+                        {tier.features.map((f) => (
+                          <li
+                            key={f}
+                            className="flex gap-2.5 text-sm leading-relaxed text-[#C8D9D3]"
+                          >
+                            <CheckCircle2
+                              className={`mt-0.5 h-4 w-4 shrink-0 ${a.icon}`}
+                            />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </GlassCard>
+                  </ScrollReveal>
+                );
+              })}
+            </div>
+
+            <ScrollReveal delay={0.2} blur={10} scaleFrom={0.98}>
+              <CustomTierWideCard tier={customTier} />
+            </ScrollReveal>
           </div>
+          <ScrollReveal blur={6} className="mt-8">
+            <p className="text-center text-sm text-[#6F8580]">
+              Alle Preise verstehen sich als Richtwerte; finale Leistung und
+              Umfang stimmen wir im Erstgespräch mit Ihnen ab.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-[#0A1411] border-t border-[#1C2B26]">
+      <section className="bg-[#050706] py-16 md:py-20">
+        <div className="container-custom">
+          <ScrollReveal blur={8} scaleFrom={0.99}>
+            <div className="mx-auto mb-10 max-w-2xl text-center md:mb-12">
+              <h2 className="font-display text-2xl font-bold text-[#F2F5F4] sm:text-3xl">
+                Optionale{" "}
+                <span className="gradient-text">Upsells & Add-ons</span>
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-[#9BAFA8] md:text-base">
+                Erweitern Sie jedes Paket – hier liegt oft der Mehrwert für
+                Sichtbarkeit, Inhalte und Betrieb.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="mx-auto grid max-w-3xl gap-3 sm:grid-cols-2">
+            {upsells.map((u, i) => (
+              <ScrollReveal key={u.title} delay={i * 0.04} blur={6}>
+                <div className="flex items-center justify-between gap-4 rounded-xl border border-[#1C2B26]/90 bg-[#0a1210]/50 px-4 py-3.5">
+                  <span className="text-sm font-medium text-[#E8EFEC]">
+                    {u.title}
+                  </span>
+                  <span className="shrink-0 font-mono text-xs text-[#1FBF8F]/85">
+                    {u.range}
+                  </span>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal delay={0.15} blur={6} className="mt-10">
+            <div className="mx-auto max-w-2xl rounded-2xl border border-[#1C2B26]/80 bg-[#0F1F1A]/35 px-5 py-4 text-center">
+              <p className="text-sm text-[#9BAFA8]">
+                Express-Lieferung, Mehrsprachigkeit und Content-Pflege geben wir
+                immer transparent im Angebot aus – keine versteckten Posten.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="bg-[#0A1411] py-16 md:py-20">
         <div className="container-custom text-center">
-          <ScrollReveal>
-            <h2 className="text-2xl font-display font-bold text-[#F2F5F4] mb-4">
-              Bereit für Ihr Projekt?
+          <ScrollReveal blur={8} scaleFrom={0.98}>
+            <h2 className="mb-3 font-display text-xl font-bold text-[#F2F5F4] sm:text-2xl">
+              Welches Paket passt zu Ihnen?
             </h2>
-            <p className="text-[#9BAFA8] mb-8 max-w-lg mx-auto">
-              Sprechen Sie uns an – kostenloses Erstgespräch, keine
-              Verpflichtungen.
+            <p className="mx-auto mb-8 max-w-md text-sm leading-relaxed text-[#9BAFA8]">
+              Kurz telefonieren oder schreiben – wir empfehlen ehrlich Starter,
+              Growth, Pro, Business+ oder einen Custom-Scope.
             </p>
-            <ShimmerButton href="/kontakt" size="lg">
-              Jetzt anfragen
-              <ArrowRight className="w-4 h-4" />
-            </ShimmerButton>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <ShimmerButton href="/kontakt" size="lg">
+                Jetzt anfragen
+                <ArrowRight className="h-4 w-4" />
+              </ShimmerButton>
+              <a
+                href="/kontakt"
+                className="text-sm font-medium text-[#6F8580] underline-offset-4 transition hover:text-[#9BAFA8] hover:underline"
+              >
+                Custom-Projekt besprechen
+              </a>
+            </div>
           </ScrollReveal>
         </div>
       </section>

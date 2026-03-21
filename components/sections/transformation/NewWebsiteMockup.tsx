@@ -630,7 +630,7 @@ export default function NewWebsiteMockup() {
             <Mail size={8} /> info@inntal.at
           </span>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
-            <MapPin size={8} /> Wattens, Tirol
+            <MapPin size={8} /> Kufstein, Tirol
           </span>
         </div>
       </div>

@@ -141,7 +141,7 @@ export default function Portfolio() {
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <ScrollReveal>
+        <ScrollReveal blur={10} scaleFrom={0.99}>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-12">
             <div>
               <div className="section-label mb-5">
@@ -170,14 +170,20 @@ export default function Portfolio() {
         {/* Cards grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, i) => (
-            <ScrollReveal key={project.title} delay={i * 0.1} direction="up">
+            <ScrollReveal
+              key={project.title}
+              delay={i * 0.1}
+              direction="up"
+              blur={8}
+              scaleFrom={0.97}
+            >
               <ProjectCard project={project} />
             </ScrollReveal>
           ))}
         </div>
 
         {/* Hint note */}
-        <ScrollReveal delay={0.3}>
+        <ScrollReveal delay={0.3} blur={6} scaleFrom={0.99}>
           <p className="mt-8 text-center text-xs text-[#6F8580]">
             Die gezeigten Arbeiten sind Konzept- und Designstudien. Reale
             Kundenprojekte werden nach Freigabe ergänzt.

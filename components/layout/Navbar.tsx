@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -53,44 +53,67 @@ export default function Navbar() {
         <div className="container-custom">
           <nav className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-0.5 flex-shrink-0">
-              <span className="text-xl font-display font-bold text-[#F2F5F4] tracking-tight">
-                LAVIK
-              </span>
-              <span className="text-xl font-display font-light text-[#1FBF8F] tracking-tight">
-                Media
-              </span>
-            </Link>
+            <motion.div
+              className="flex-shrink-0"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 28 }}
+            >
+              <Link href="/" className="flex items-center gap-0.5">
+                <span className="text-xl font-display font-bold text-[#F2F5F4] tracking-tight">
+                  LAVIK
+                </span>
+                <span className="text-xl font-display font-light text-[#1FBF8F] tracking-tight">
+                  Media
+                </span>
+              </Link>
+            </motion.div>
 
             {/* Desktop nav */}
-            <div className="hidden lg:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "text-sm font-medium transition-colors duration-200 relative",
-                    pathname === link.href
-                      ? "text-[#F2F5F4]"
-                      : "text-[#6F8580] hover:text-[#9BAFA8]"
-                  )}
-                >
-                  {link.label}
-                  {pathname === link.href && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#1FBF8F]/50 rounded-full" />
-                  )}
-                </Link>
-              ))}
-            </div>
+            <LayoutGroup>
+              <div className="hidden lg:flex items-center gap-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "relative py-1 text-sm font-medium transition-colors duration-200",
+                      pathname === link.href
+                        ? "text-[#F2F5F4]"
+                        : "text-[#6F8580] hover:text-[#9BAFA8]"
+                    )}
+                  >
+                    {link.label}
+                    {pathname === link.href && (
+                      <motion.span
+                        layoutId="nav-active-pill"
+                        className="absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-gradient-to-r from-[#1FBF8F]/20 via-[#1FBF8F]/70 to-[#1FBF8F]/20"
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 32,
+                        }}
+                      />
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </LayoutGroup>
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center">
-              <Link
-                href="/kontakt"
-                className="px-5 py-2.5 rounded-xl bg-[#0F7A5A] hover:bg-[#159A73] text-[#F2F5F4] text-sm font-semibold transition-all duration-200 hover:shadow-[0_0_24px_rgba(15,122,90,0.45)]"
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 24 }}
               >
-                Projekt anfragen
-              </Link>
+                <Link
+                  href="/kontakt"
+                  className="inline-block px-5 py-2.5 rounded-xl bg-[#0F7A5A] hover:bg-[#159A73] text-[#F2F5F4] text-sm font-semibold transition-colors duration-200 hover:shadow-[0_0_24px_rgba(15,122,90,0.45)]"
+                >
+                  Projekt anfragen
+                </Link>
+              </motion.div>
             </div>
 
             {/* Mobile hamburger */}

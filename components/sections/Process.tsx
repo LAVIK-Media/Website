@@ -41,7 +41,7 @@ export default function Process() {
       />
 
       <div className="container-custom relative z-10">
-        <ScrollReveal>
+        <ScrollReveal blur={8} scaleFrom={0.99}>
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="section-label mx-auto mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1FBF8F]" />
@@ -65,7 +65,13 @@ export default function Process() {
           />
 
           {steps.map((step, i) => (
-            <ScrollReveal key={step.number} delay={i * 0.1} direction="up">
+            <ScrollReveal
+              key={step.number}
+              delay={i * 0.1}
+              direction="up"
+              blur={8}
+              scaleFrom={0.97}
+            >
               <div className="relative flex flex-col h-full">
                 <div className="flex flex-col h-full p-6 rounded-2xl border border-[#1C2B26] bg-[#0F1F1A]/40 hover:bg-[#132822]/60 hover:border-[#0F7A5A]/25 transition-all duration-300 group">
                   <div className="flex items-center gap-3 mb-5">
@@ -96,7 +102,7 @@ export default function Process() {
           ))}
         </div>
 
-        <ScrollReveal delay={0.4}>
+        <ScrollReveal delay={0.4} blur={6} scaleFrom={0.99}>
           <div className="mt-12 text-center">
             <p className="text-sm text-[#6F8580]">
               Bereit für Ihren neuen Webauftritt?{" "}

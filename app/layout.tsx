@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import MouseGlow from "@/components/ui/MouseGlow";
+import CookieConsent from "@/components/consent/CookieConsent";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,14 +21,16 @@ const syne = Syne({
 
 export const metadata: Metadata = {
   title: {
-    default: "LAVIK Media – Hochwertige Websites für Tiroler Unternehmen",
+    default:
+      "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
     template: "%s | LAVIK Media",
   },
   description:
-    "LAVIK Media gestaltet und entwickelt professionelle, moderne Websites für lokale Unternehmen in Tirol. Individuelles Webdesign, saubere Entwicklung, langfristige Betreuung.",
+    "LAVIK Media gestaltet und entwickelt professionelle, moderne Websites für lokale Unternehmen in Kufstein, Tirol und Umgebung. Individuelles Webdesign, saubere Entwicklung, langfristige Betreuung.",
   keywords: [
     "Webdesign Tirol",
-    "Webentwicklung Innsbruck",
+    "Webdesign Kufstein",
+    "Webentwicklung Kufstein",
     "Website erstellen lassen",
     "professionelle Website",
     "lokale Webdesign Agentur",
@@ -39,13 +42,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "de_AT",
     siteName: "LAVIK Media",
-    title: "LAVIK Media – Hochwertige Websites für Tiroler Unternehmen",
+    title:
+      "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
     description:
       "Professionelle Webauftritte für lokale Unternehmen. Individuelles Design, saubere Technik, persönliche Betreuung.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "LAVIK Media – Hochwertige Websites für Tiroler Unternehmen",
+    title:
+      "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
     description:
       "Professionelle Webauftritte für lokale Unternehmen. Individuelles Design, saubere Technik, persönliche Betreuung.",
   },
@@ -64,6 +69,7 @@ export default function RootLayout({
     <html lang="de" className={`${inter.variable} ${syne.variable}`}>
       <body className="bg-[#06060c] text-white antialiased">
         <MouseGlow />
+        <CookieConsent />
         <Navbar />
         <main>{children}</main>
         <Footer />

@@ -1,130 +1,226 @@
 "use client";
 
-import { useRef, useEffect, useState, type MutableRefObject, type RefObject } from "react";
+import {
+  useRef,
+  useLayoutEffect,
+  type RefObject,
+  type MutableRefObject,
+} from "react";
 
 /**
- * Two-phase trigger animation hook — v9.
+ * Transformation v11 — Lock → ein Scroll triggert → Auto-Animation (kein Scrub).
  *
- * Key insight: checking position in the WHEEL handler (not scroll handler)
- * prevents overshoot. The wheel event fires BEFORE the browser scrolls,
- * so we can preventDefault on the exact event that would push past center.
- *
- * Flow:
- * 1. User scrolls. Each wheel event: check if section is at/past trigger →
- *    if yes, preventDefault (stop THIS scroll), snap to center, lock.
- * 2. User is stuck, frame centered. Next wheel → start animation.
- * 3. Animation ends → instant unlock.
+ * - Erstes Mal (pro Tab-Session): Sektion einrasten, nächstes Scroll startet die
+ *   volle Animation automatisch (~8s).
+ * - Danach (hoch/runter): nur Endzustand, keine Wiederholung.
+ * - Nach Browser-Reload: wieder einmal möglich (sessionStorage wird geleert).
  */
 
-const DURATION = 8000;
+const STORAGE_KEY = "lavik-transformation-played";
+const DURATION_MS = 8000;
+
+type Phase = "idle" | "watching" | "locked" | "animating" | "done";
 
 interface AutoAnimationResult {
   progress: MutableRefObject<number>;
-  done: boolean;
 }
 
 export function useAutoAnimation(
   triggerRef: RefObject<HTMLElement | null>
 ): AutoAnimationResult {
   const progress = useRef(0);
-  const hasPlayed = useRef(false);
-  const [done, setDone] = useState(false);
+  const phaseRef = useRef<Phase>("idle");
+  const scrollYStored = useRef(0);
+  const scrollLockActive = useRef(false);
 
-  const state = useRef<"watching" | "locked" | "animating" | "done">("watching");
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = triggerRef.current;
-    if (!el || hasPlayed.current) return;
+    if (!el) return;
 
-    // ── Unified wheel handler — handles ALL states ──
+    function lockViewportScroll() {
+      if (scrollLockActive.current) return;
+      scrollLockActive.current = true;
+      const y = window.scrollY;
+      scrollYStored.current = y;
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${y}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
+    }
+
+    function unlockViewportScroll() {
+      if (!scrollLockActive.current) return;
+      scrollLockActive.current = false;
+      // y aus body.top lesen (wie beim Lock gesetzt) — zuverlässiger als nur Ref
+      const topStyle = document.body.style.top;
+      const yFromBody =
+        topStyle && topStyle !== "0px"
+          ? Math.abs(parseInt(topStyle, 10) || 0)
+          : scrollYStored.current;
+
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+
+      const html = document.documentElement;
+      // html hat global scroll-behavior: smooth — sonst animiert scrollTo() und wirkt wie Sprung
+      const prevScrollBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = "auto";
+      window.scrollTo(0, yFromBody);
+      html.style.scrollBehavior = prevScrollBehavior;
+    }
+
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduced) {
+      progress.current = 1;
+      phaseRef.current = "done";
+      try {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+      } catch {
+        /* noop */
+      }
+      return;
+    }
+
+    const nav = performance.getEntriesByType(
+      "navigation"
+    )[0] as PerformanceNavigationTiming | undefined;
+    if (nav?.type === "reload") {
+      try {
+        sessionStorage.removeItem(STORAGE_KEY);
+      } catch {
+        /* noop */
+      }
+    }
+
+    let alreadyPlayed = false;
+    try {
+      alreadyPlayed = sessionStorage.getItem(STORAGE_KEY) === "1";
+    } catch {
+      alreadyPlayed = false;
+    }
+
+    if (alreadyPlayed) {
+      progress.current = 1;
+      phaseRef.current = "done";
+      return;
+    }
+
+    phaseRef.current = "watching";
+
+    const section = el;
+
     function handleWheel(e: WheelEvent) {
-      if (state.current === "watching") {
-        // Check if we should lock NOW — before the browser processes this scroll
-        const sectionRect = el!.getBoundingClientRect();
+      if (phaseRef.current === "watching") {
+        const sectionRect = section.getBoundingClientRect();
         const vh = window.innerHeight;
 
-        // Only trigger when scrolling DOWN and section is near/past viewport top
-        if (e.deltaY > 0 && sectionRect.top <= vh * 0.08 && sectionRect.bottom > vh) {
-          // BLOCK this wheel event — prevents the overshoot
+        if (
+          e.deltaY > 0 &&
+          sectionRect.top <= vh * 0.08 &&
+          sectionRect.bottom > vh
+        ) {
           e.preventDefault();
-
-          // Snap section top to exactly viewport top
           if (Math.abs(sectionRect.top) > 1) {
             window.scrollBy(0, sectionRect.top);
           }
-
-          state.current = "locked";
-          return;
+          phaseRef.current = "locked";
+          lockViewportScroll();
         }
-        // Otherwise let scroll happen naturally (don't preventDefault)
-
-      } else if (state.current === "locked") {
+      } else if (phaseRef.current === "locked") {
         e.preventDefault();
         startAnimation();
-
-      } else if (state.current === "animating") {
+      } else if (phaseRef.current === "animating") {
         e.preventDefault();
       }
     }
 
-    function handleTouch(e: TouchEvent) {
-      if (state.current === "locked" || state.current === "animating") {
+    function handleTouchMove(e: TouchEvent) {
+      if (
+        phaseRef.current === "locked" ||
+        phaseRef.current === "animating"
+      ) {
         e.preventDefault();
-        if (state.current === "locked") startAnimation();
+        if (phaseRef.current === "locked") startAnimation();
       }
     }
 
     function handleKey(e: KeyboardEvent) {
-      if (state.current !== "locked" && state.current !== "animating") return;
-      if (["ArrowDown", "ArrowUp", " ", "PageDown", "PageUp", "Home", "End"].includes(e.key)) {
+      if (
+        phaseRef.current !== "locked" &&
+        phaseRef.current !== "animating"
+      ) {
+        return;
+      }
+      if (
+        ["ArrowDown", "ArrowUp", " ", "PageDown", "PageUp", "Home", "End"].includes(
+          e.key
+        )
+      ) {
         e.preventDefault();
-        if (state.current === "locked" && ["ArrowDown", " ", "PageDown"].includes(e.key)) {
+        if (
+          phaseRef.current === "locked" &&
+          ["ArrowDown", " ", "PageDown"].includes(e.key)
+        ) {
           startAnimation();
         }
       }
     }
 
-    // Register from the start — handler checks state internally
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchmove", handleTouch, { passive: false });
-    window.addEventListener("keydown", handleKey as EventListener);
-
-    function removeAllListeners() {
+    function removeListeners() {
       window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchmove", handleTouch);
+      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("keydown", handleKey as EventListener);
     }
 
-    // ── Start animation ──
     function startAnimation() {
-      if (state.current !== "locked") return;
-      state.current = "animating";
+      if (phaseRef.current !== "locked") return;
+      phaseRef.current = "animating";
 
       const start = performance.now();
 
-      function animate(now: number) {
+      function frame(now: number) {
         const elapsed = now - start;
-        const raw = Math.min(elapsed / DURATION, 1);
+        const raw = Math.min(elapsed / DURATION_MS, 1);
         progress.current = raw;
 
         if (raw < 1) {
-          requestAnimationFrame(animate);
+          requestAnimationFrame(frame);
         } else {
           progress.current = 1;
-          hasPlayed.current = true;
-          state.current = "done";
-          removeAllListeners();
-          setDone(true);
+          phaseRef.current = "done";
+          try {
+            sessionStorage.setItem(STORAGE_KEY, "1");
+          } catch {
+            /* noop */
+          }
+          unlockViewportScroll();
+          removeListeners();
         }
       }
 
-      requestAnimationFrame(animate);
+      requestAnimationFrame(frame);
     }
 
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("keydown", handleKey as EventListener);
+
     return () => {
-      removeAllListeners();
+      removeListeners();
+      unlockViewportScroll();
     };
   }, [triggerRef]);
 
-  return { progress, done };
+  return { progress };
 }

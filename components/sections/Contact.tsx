@@ -75,12 +75,14 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [privacyAcknowledged, setPrivacyAcknowledged] = useState(false);
 
   const set = (key: keyof typeof form) => (v: string) =>
     setForm((f) => ({ ...f, [key]: v }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyAcknowledged) return;
     setLoading(true);
     // Simulate async submission — replace with real backend / form service
     await new Promise((r) => setTimeout(r, 1200));
@@ -100,7 +102,7 @@ export default function Contact() {
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <ScrollReveal>
+        <ScrollReveal blur={8} scaleFrom={0.99}>
           <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="section-label mx-auto mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1FBF8F]" />
@@ -118,7 +120,7 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-[1fr_1.6fr] gap-12 items-start">
           {/* Left — contact info */}
-          <ScrollReveal direction="left">
+          <ScrollReveal direction="left" blur={8} scaleFrom={0.99}>
             <div className="space-y-8">
               <div>
                 <h3 className="text-lg font-display font-semibold text-[#F2F5F4] mb-4">
@@ -129,19 +131,19 @@ export default function Contact() {
                     {
                       icon: Mail,
                       label: "E-Mail",
-                      value: "hallo@lavik-media.at",
-                      href: "mailto:hallo@lavik-media.at",
+                      value: "service@lavik-media.com",
+                      href: "mailto:service@lavik-media.com",
                     },
                     {
                       icon: Phone,
                       label: "Telefon",
-                      value: "+43 (0) 512 XXX XXX",
-                      href: "tel:+43512000000",
+                      value: "+43 (0) 5372 XXX XXX",
+                      href: "tel:+435372000000",
                     },
                     {
                       icon: MapPin,
                       label: "Standort",
-                      value: "Innsbruck, Tirol",
+                      value: "Kufstein, Tirol",
                       href: null,
                     },
                   ].map((item) => (
@@ -193,7 +195,7 @@ export default function Contact() {
           </ScrollReveal>
 
           {/* Right — form */}
-          <ScrollReveal direction="right">
+          <ScrollReveal direction="right" blur={8} scaleFrom={0.99}>
             <div className="rounded-2xl border border-[#1C2B26] bg-[#0F1F1A]/30 p-8">
               {submitted ? (
                 <div className="text-center py-12">
@@ -342,14 +344,9 @@ export default function Contact() {
                   </ShimmerButton>
 
                   <p className="text-[11px] text-[#6F8580] text-center">
-                    Mit dem Absenden stimmen Sie unserer{" "}
-                    <a
-                      href="/datenschutz"
-                      className="text-[#6F8580] hover:text-[#9BAFA8] transition-colors underline underline-offset-2"
-                    >
-                      Datenschutzerklärung
-                    </a>{" "}
-                    zu.
+                    Pflichtfelder sind mit * gekennzeichnet. Übermittlung nur
+                    über verschlüsselte Verbindung (HTTPS), sobald das Formular
+                    produktiv an einen Server angebunden ist.
                   </p>
                 </form>
               )}

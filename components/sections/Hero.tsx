@@ -202,8 +202,8 @@ export default function Hero() {
               className="text-lg text-[#9BAFA8] leading-relaxed mb-9 max-w-[500px]"
             >
               LAVIK Media entwickelt hochwertige Websites für Unternehmen in
-              Tirol – individuell gestaltet, technisch sauber, mit persönlicher
-              Betreuung nach dem Launch.
+              Kufstein, Tirol und Umgebung – individuell gestaltet, technisch
+              sauber, mit persönlicher Betreuung nach dem Launch.
             </motion.p>
 
             <motion.div

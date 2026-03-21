@@ -43,7 +43,7 @@ function FAQItem({
   const [open, setOpen] = useState(false);
 
   return (
-    <ScrollReveal delay={index * 0.07}>
+    <ScrollReveal delay={index * 0.07} blur={6} scaleFrom={0.99}>
       <div
         className={cn(
           "border rounded-xl overflow-hidden transition-all duration-300",
@@ -97,7 +97,7 @@ export default function FAQ() {
       />
 
       <div className="container-custom relative z-10">
-        <ScrollReveal>
+        <ScrollReveal blur={8} scaleFrom={0.99}>
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="section-label mx-auto mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1FBF8F]" />
@@ -118,7 +118,7 @@ export default function FAQ() {
           ))}
         </div>
 
-        <ScrollReveal delay={0.3}>
+        <ScrollReveal delay={0.3} blur={6} scaleFrom={0.99}>
           <p className="mt-10 text-center text-sm text-[#6F8580]">
             Noch eine Frage?{" "}
             <a

@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import ShimmerButton from "@/components/ui/ShimmerButton";
+import { easeOutExpo } from "@/lib/motion";
 
 /** Hero clip in public/Video/. Env overrides. */
 const HERO_VIDEO_SOURCES = [
@@ -20,8 +21,6 @@ const HERO_VIDEO_SOURCES = [
   "https://videos.pexels.com/video-files/10976054/10976054-hd_1920_1080_25fps.mp4",
   "https://videos.pexels.com/video-files/10976054/10976054-hd_1280_720_25fps.mp4",
 ].filter(Boolean) as string[];
-
-const ease = [0.21, 0.47, 0.32, 0.98] as const;
 
 export default function HeroCinematic() {
   const reducedMotion = useReducedMotion();
@@ -54,7 +53,7 @@ export default function HeroCinematic() {
       : {
           initial: { opacity: 0, y },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.75, delay, ease },
+          transition: { duration: 0.78, delay, ease: easeOutExpo },
         };
 
   return (
@@ -108,63 +107,28 @@ export default function HeroCinematic() {
           />
         ) : null}
 
-        {/* Cold green grade + desat overlay (no warm tones) */}
+        {/* Einheitlicher Grade: kühles Grün + Lesbarkeit, weniger Layer */}
         <div
-          className="absolute inset-0 bg-[#1a2e24]/[0.22] mix-blend-soft-light"
+          className="absolute inset-0 bg-[#1a2e24]/[0.14] mix-blend-soft-light"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-[#1f3d2b]/[0.12] via-transparent to-black/70"
-          aria-hidden="true"
-        />
-        {/* Readable center: calm mid, darker foreground */}
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/35 to-black/25"
+          className="absolute inset-0 bg-gradient-to-b from-[#1f3d2b]/[0.08] via-transparent to-black/65"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-0 bg-black/35"
+          className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/28 to-black/20"
           aria-hidden="true"
         />
-        {/* Top third: slightly more weight on peaks */}
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-transparent h-[38%]"
-          aria-hidden="true"
-        />
-
-        {/* Subtle fog drift (CSS only — very low motion) */}
-        {!reducedMotion && (
-          <motion.div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] opacity-[0.12]"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(200,210,205,0.07) 0%, transparent 100%)",
-            }}
-            animate={{ x: ["-2%", "2%", "-2%"] }}
-            transition={{
-              duration: 28,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            aria-hidden="true"
-          />
-        )}
       </div>
 
-      {/* Film grain — minimal */}
       <div
-        className="absolute inset-0 z-[1] noise-overlay pointer-events-none opacity-[0.35]"
-        aria-hidden="true"
-      />
-
-      {/* Grid — very subtle */}
-      <div
-        className="absolute inset-0 z-[2] line-grid pointer-events-none opacity-[0.025]"
+        className="absolute inset-0 z-[1] noise-overlay pointer-events-none opacity-[0.14]"
         aria-hidden="true"
       />
 
       {/* Content */}
-      <div className="relative z-10 container-custom w-full pt-32 pb-24 lg:pt-40 lg:pb-32 flex flex-col items-center text-center">
+      <div className="relative z-10 container-custom flex w-full flex-col items-center px-4 pt-28 pb-20 text-center sm:px-6 lg:pt-36 lg:pb-28">
         <motion.div {...animate(0, 20)} className="mb-8">
           <div className="hero-glass-label">
             <span

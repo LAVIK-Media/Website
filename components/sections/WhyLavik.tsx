@@ -41,7 +41,7 @@ export default function WhyLavik() {
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-16 items-start">
           {/* Left — heading */}
           <div className="lg:sticky lg:top-32">
-            <ScrollReveal direction="left">
+            <ScrollReveal direction="left" blur={10} scaleFrom={0.99}>
               <div className="section-label mb-5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#1FBF8F]" />
                 Warum LAVIK Media
@@ -67,7 +67,9 @@ export default function WhyLavik() {
                     <div className="text-sm font-semibold text-[#9BAFA8]">
                       LAVIK Media
                     </div>
-                    <div className="text-xs text-[#6F8580]">Tirol, Österreich</div>
+                    <div className="text-xs text-[#6F8580]">
+                      Kufstein, Tirol
+                    </div>
                   </div>
                 </div>
               </div>
@@ -77,7 +79,13 @@ export default function WhyLavik() {
           {/* Right — cards */}
           <div className="space-y-4">
             {differentiators.map((item, i) => (
-              <ScrollReveal key={item.number} delay={i * 0.1} direction="right">
+              <ScrollReveal
+                key={item.number}
+                delay={i * 0.1}
+                direction="right"
+                blur={8}
+                scaleFrom={0.97}
+              >
                 <GlassCard hover className="p-6 group cursor-default">
                   <div className="flex items-start gap-5">
                     <div className="flex-shrink-0">

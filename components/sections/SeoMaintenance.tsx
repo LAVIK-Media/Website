@@ -31,7 +31,7 @@ export default function SeoMaintenance() {
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <ScrollReveal>
+        <ScrollReveal blur={8} scaleFrom={0.99}>
           <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="section-label mx-auto mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1FBF8F]" />
@@ -96,7 +96,7 @@ export default function SeoMaintenance() {
           </ScrollReveal>
 
           {/* Maintenance Card */}
-          <ScrollReveal delay={0.2} direction="right">
+          <ScrollReveal delay={0.2} direction="right" blur={8} scaleFrom={0.98}>
             <GlassCard
               className="p-8 h-full relative overflow-hidden"
             >

@@ -20,7 +20,7 @@ export default function FinalCTA() {
       />
 
       <div className="container-custom relative z-10">
-        <ScrollReveal>
+        <ScrollReveal blur={14} scaleFrom={0.97} duration={0.8}>
           <div className="max-w-3xl mx-auto">
             {/* Main CTA card */}
             <div className="rounded-3xl border border-[#1C2B26] bg-[#0F1F1A]/40 backdrop-blur-xl p-10 sm:p-14 text-center relative overflow-hidden">
@@ -72,7 +72,7 @@ export default function FinalCTA() {
                 {/* Mini trust note */}
                 <div className="mt-8 pt-8 border-t border-[#1A2622]">
                   <p className="text-xs text-[#6F8580]">
-                    Für lokale Unternehmen in Tirol und Umgebung ·
+                    Für lokale Unternehmen in Kufstein, Tirol und Umgebung ·
                     Individuelle Umsetzung · Keine Standardlösungen
                   </p>
                 </div>

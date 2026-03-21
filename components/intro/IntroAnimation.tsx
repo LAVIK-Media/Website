@@ -7,6 +7,7 @@ import { INTRO_CONFIG } from "./introConfig";
 import { useFrameSequence } from "./useFrameSequence";
 import { useCanvasRenderer } from "./useCanvasRenderer";
 import { useIntroState } from "./useIntroState";
+import { INTRO_COMPLETE_EVENT } from "@/lib/cookie-consent";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -233,6 +234,7 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
   // When done, scroll to top after spacer is removed from DOM
   useEffect(() => {
     if (phase === "done") {
+      window.dispatchEvent(new CustomEvent(INTRO_COMPLETE_EVENT));
       window.scrollTo(0, 0);
       requestAnimationFrame(() => window.scrollTo(0, 0));
       setTimeout(() => window.scrollTo(0, 0), 50);
@@ -322,7 +324,7 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
                     textShadow: "0 2px 20px rgba(0,0,0,0.5)",
                   }}
                 >
-                  Hochwertige Websites für Tiroler Unternehmen
+                  Hochwertige Websites für Unternehmen in Kufstein & Tirol
                 </p>
               </div>
             </div>

@@ -93,7 +93,7 @@ export default function Services() {
       />
 
       <div className="container-custom relative z-10">
-        <ScrollReveal>
+        <ScrollReveal blur={8} scaleFrom={0.99}>
           <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="section-label mx-auto mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1FBF8F]" />
@@ -113,7 +113,13 @@ export default function Services() {
           {services.map((service, i) => {
             const c = colorMap[service.color];
             return (
-              <ScrollReveal key={service.title} delay={i * 0.07} direction="up">
+              <ScrollReveal
+                key={service.title}
+                delay={i * 0.07}
+                direction="up"
+                blur={8}
+                scaleFrom={0.97}
+              >
                 <GlassCard
                   hover
                   className="p-7 h-full flex flex-col group cursor-default"

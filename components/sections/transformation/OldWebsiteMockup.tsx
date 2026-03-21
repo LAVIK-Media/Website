@@ -305,7 +305,7 @@ export default function OldWebsiteMockup() {
           >
             <p style={{ fontSize: 10, lineHeight: 1.6, color: "#555", margin: 0 }}>
               Wir, die Familie Gruber, heißen Sie herzlich willkommen! Unsere
-              Bäckerei in Wattens bietet Ihnen täglich frisches Brot und
+              Bäckerei in Kufstein bietet Ihnen täglich frisches Brot und
               feinste Mehlspeisen aus der Region.
             </p>
           </div>

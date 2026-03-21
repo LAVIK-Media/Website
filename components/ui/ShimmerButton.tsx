@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { type ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface ShimmerButtonProps {
   href?: string;
@@ -73,15 +74,26 @@ export default function ShimmerButton({
     </>
   );
 
+  const motionWrap = (node: ReactNode) => (
+    <motion.span
+      className="inline-flex"
+      whileHover={{ scale: disabled ? 1 : 1.02 }}
+      whileTap={{ scale: disabled ? 1 : 0.98 }}
+      transition={{ type: "spring", stiffness: 420, damping: 26 }}
+    >
+      {node}
+    </motion.span>
+  );
+
   if (href) {
-    return (
+    return motionWrap(
       <Link href={href} className={base}>
         {content}
       </Link>
     );
   }
 
-  return (
+  return motionWrap(
     <button onClick={onClick} className={base} type={type} disabled={disabled}>
       {content}
     </button>

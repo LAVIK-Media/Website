@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 export const metadata: Metadata = {
   title: "Kontakt",
   description:
-    "Nehmen Sie Kontakt mit LAVIK Media auf. Kostenloses Erstgespräch für Ihr Webprojekt in Tirol.",
+    "Nehmen Sie Kontakt mit LAVIK Media auf. Kostenloses Erstgespräch für Ihr Webprojekt in Kufstein und Tirol.",
 };
 
 export default function KontaktPage() {

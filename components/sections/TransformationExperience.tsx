@@ -10,13 +10,8 @@ import TransformationOrchestrator from "./transformation/TransformationOrchestra
 import { PARTICLES } from "./transformation/transformationConfig";
 
 /**
- * Transformation section — auto-play animation triggered by scroll.
- *
- * Section is 102vh: the sticky viewport (100vh) pins the frame in the
- * viewport center. The extra 2vh gives enough scroll room for the sticky
- * to pin, while keeping post-animation scroll to an absolute minimum
- * (~16px). No layout changes at animation end — sticky stays sticky,
- * frame unpins naturally as user scrolls past.
+ * Transformation — einmal pro Session: einrasten → ein Scroll startet die Auto-Animation.
+ * Danach nur Endzustand; Reload der Seite setzt wieder eine Wiedergabe frei.
  */
 export default function TransformationExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,11 +47,10 @@ export default function TransformationExperience() {
         }
       `}</style>
 
-      {/* Sticky viewport — stays sticky always, unpins naturally */}
       <div
         ref={stickyRef}
-        className="sticky top-0 w-full overflow-hidden flex items-center justify-center"
-        style={{ height: "100vh", zIndex: 1 }}
+        className="sticky top-0 flex h-[100vh] w-full items-center justify-center overflow-hidden"
+        style={{ zIndex: 1 }}
       >
         {/* Background ambient glow */}
         <div
