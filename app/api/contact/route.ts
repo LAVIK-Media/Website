@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const to = process.env.CONTACT_TO_EMAIL ?? "kontakt@lavik-media.com";
+  const to = process.env.CONTACT_TO_EMAIL ?? "jakob@lavik-media.com";
   const from =
     process.env.CONTACT_FROM_EMAIL ?? "LAVIK Media <onboarding@resend.dev>";
 

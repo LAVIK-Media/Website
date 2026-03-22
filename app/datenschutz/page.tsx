@@ -45,10 +45,10 @@ export default function DatenschutzPage() {
                 <p className="mt-3">
                   E-Mail:{" "}
                   <a
-                    href="mailto:kontakt@lavik-media.com"
+                    href="mailto:jakob@lavik-media.com"
                     className="text-[#1FBF8F] hover:text-[#2FD4A4] transition-colors"
                   >
-                    kontakt@lavik-media.com
+                    jakob@lavik-media.com
                   </a>
                 </p>
                 <p className="mt-3 text-xs text-[#6F8580]">

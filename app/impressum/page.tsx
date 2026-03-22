@@ -50,10 +50,10 @@ export default function ImpressumPage() {
                 <p>
                   E-Mail:{" "}
                   <a
-                    href="mailto:kontakt@lavik-media.com"
+                    href="mailto:jakob@lavik-media.com"
                     className="text-[#1FBF8F] hover:text-[#2FD4A4] transition-colors"
                   >
-                    kontakt@lavik-media.com
+                    jakob@lavik-media.com
                   </a>
                 </p>
                 <p>Telefon: +43 (0) 5372 XXX XXX</p>

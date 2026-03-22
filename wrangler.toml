@@ -4,7 +4,7 @@
 # Kontaktformular (/api/contact): Variablen im Dashboard unter diesem Worker setzen, nicht nur in GitHub:
 #   Workers → lavik-media-website → Settings → Variables and Secrets
 #   - RESEND_API_KEY  (als Secret)
-#   - CONTACT_TO_EMAIL (z. B. kontakt@lavik-media.com), CONTACT_FROM_EMAIL (optional, Plaintext)
+#   - CONTACT_TO_EMAIL (z. B. jakob@lavik-media.com), CONTACT_FROM_EMAIL (optional, Plaintext)
 # GitHub-Secrets allein reichen nicht — nach dem Setzen erneut deployen.
 
 name = "lavik-media-website"
