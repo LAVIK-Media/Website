@@ -27,6 +27,7 @@
     "three": "^0.183.2"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.17.1",
     "@types/node": "^22.10.7",
     "@types/react": "^19.0.6",
     "@types/react-dom": "^19.0.3",
