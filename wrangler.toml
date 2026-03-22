@@ -5,9 +5,14 @@ name = "lavik-media-website"
 main = ".open-next/worker.js"
 compatibility_date = "2024-12-30"
 
+routes = [
+    { pattern = "lavik-media.com", custom_domain = true },
+      { pattern = "www.lavik-media.com", custom_domain = true },
+]
+
 compatibility_flags = [
-  "nodejs_compat",
-  "global_fetch_strictly_public",
+    "nodejs_compat",
+      "global_fetch_strictly_public",
 ]
 
 [assets]
