@@ -20,7 +20,25 @@ const syne = Syne({
   display: "swap",
 });
 
+const SITE_URL = "https://lavik-media.com";
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "LAVIK Media",
+  url: SITE_URL,
+  description: "Webdesign & Entwicklung für Unternehmen in Kufstein, Tirol",
+  email: "jakob@lavik-media.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Kufstein",
+    addressRegion: "Tirol",
+    addressCountry: "AT",
+  },
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default:
       "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
@@ -42,11 +60,20 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "de_AT",
+    url: SITE_URL,
     siteName: "LAVIK Media",
     title:
       "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
     description:
       "Professionelle Webauftritte für lokale Unternehmen. Individuelles Design, saubere Technik, persönliche Betreuung.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "LAVIK Media – Webdesign & Entwicklung, Kufstein Tirol",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -54,6 +81,7 @@ export const metadata: Metadata = {
       "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
     description:
       "Professionelle Webauftritte für lokale Unternehmen. Individuelles Design, saubere Technik, persönliche Betreuung.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -69,6 +97,12 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${inter.variable} ${syne.variable}`}>
       <body className="bg-[#06060c] text-white antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessJsonLd),
+          }}
+        />
         <MouseGlow />
         <UmamiAnalytics />
         <CookieConsent />
