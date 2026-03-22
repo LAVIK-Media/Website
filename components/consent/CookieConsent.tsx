@@ -19,7 +19,8 @@ function loadFromStorage() {
 export default function CookieConsent() {
   const pathname = usePathname();
   /** On `/` we wait for intro scroll / finish; other routes show cookie UI immediately. */
-  const [introFinished, setIntroFinished] = useState(() => pathname !== "/");
+  const [homeIntroDone, setHomeIntroDone] = useState(false);
+  const introFinished = pathname !== "/" || homeIntroDone;
   /** Footer „Cookie-Einstellungen“ während des Intros: Dialog trotzdem anzeigen */
   const [settingsForced, setSettingsForced] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -37,20 +38,20 @@ export default function CookieConsent() {
   }, []);
 
   useEffect(() => {
-    setMounted(true);
-    syncFromStorage();
+    queueMicrotask(() => {
+      setMounted(true);
+      syncFromStorage();
+    });
   }, [syncFromStorage]);
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setIntroFinished(true);
-    } else {
-      setIntroFinished(false);
+    if (pathname === "/") {
+      queueMicrotask(() => setHomeIntroDone(false));
     }
   }, [pathname]);
 
   useEffect(() => {
-    const onIntroDone = () => setIntroFinished(true);
+    const onIntroDone = () => setHomeIntroDone(true);
     window.addEventListener(INTRO_COMPLETE_EVENT, onIntroDone);
     return () => window.removeEventListener(INTRO_COMPLETE_EVENT, onIntroDone);
   }, []);

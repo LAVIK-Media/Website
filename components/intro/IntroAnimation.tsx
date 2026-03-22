@@ -55,15 +55,17 @@ export default function IntroAnimation({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    if (
-      isMobile() ||
-      isCoarsePointer() ||
-      prefersReducedMotion() ||
-      hasPlayedThisSession()
-    ) {
-      setSkipIntro(true);
-    }
+    queueMicrotask(() => {
+      setMounted(true);
+      if (
+        isMobile() ||
+        isCoarsePointer() ||
+        prefersReducedMotion() ||
+        hasPlayedThisSession()
+      ) {
+        setSkipIntro(true);
+      }
+    });
   }, []);
 
   if (!mounted) {
@@ -114,7 +116,6 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
   const scrollSpacerRef = useRef<HTMLDivElement>(null);
 
   const { phase, phaseRef, setPhase } = useIntroState();
-  const [fadingOut, setFadingOut] = useState(false);
   const [transitionFade, setTransitionFade] = useState(1); // 1=opaque, 0=transparent
 
   // Scroll progress for intro scrub (0-1)
@@ -126,7 +127,7 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
   const smoothedIntro = useSmoothedProgress(
     introProgress,
     phase === "intro-scrub",
-    0.06
+    0.11
   );
 
   // Load intro frames immediately
@@ -182,7 +183,8 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
         trigger: spacer,
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.5, // Higher = smoother on trackpad
+        // Niedriger = direkter an der Scroll-Position (weniger „Nachziehen“), höher = weicher
+        scrub: 0.55,
         onUpdate: (self) => {
           introProgress.current = self.progress;
         },
@@ -278,7 +280,7 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
           className="fixed inset-0 z-[100]"
           style={{
             background: "#050706",
-            opacity: phase === "transition" ? transitionFade : fadingOut ? 0 : 1,
+            opacity: phase === "transition" ? transitionFade : 1,
             transition: phase === "transition" ? "none" : `opacity ${INTRO_CONFIG.fadeOutDuration}ms ease-out`,
           }}
         >

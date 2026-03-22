@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable react-hooks/immutability -- ShaderMaterial uniforms are mutated every frame (Three.js). */
 import {
   useRef,
   useMemo,
@@ -542,8 +543,10 @@ export default function HeroHeadlineSmoke({
   }, [sectionRef, textRef, updateHeadlineBox]);
 
   useEffect(() => {
-    setRenderGl(!shouldDisableWebGL());
-    setFreezeTime(prefersReducedMotion() ? 0.42 : 0);
+    queueMicrotask(() => {
+      setRenderGl(!shouldDisableWebGL());
+      setFreezeTime(prefersReducedMotion() ? 0.42 : 0);
+    });
   }, []);
 
   if (!renderGl) {
