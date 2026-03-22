@@ -15,6 +15,14 @@ function isMobile() {
   return typeof window !== "undefined" && window.innerWidth < 768;
 }
 
+/** Finger/Touch als primäre Eingabe (Handy, iPad mit Finger) — Scroll-Intro bleibt für Trackpad/Maus sinnvoll. */
+function isCoarsePointer() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches
+  );
+}
+
 function prefersReducedMotion() {
   return (
     typeof window !== "undefined" &&
@@ -48,7 +56,12 @@ export default function IntroAnimation({
 
   useEffect(() => {
     setMounted(true);
-    if (isMobile() || prefersReducedMotion() || hasPlayedThisSession()) {
+    if (
+      isMobile() ||
+      isCoarsePointer() ||
+      prefersReducedMotion() ||
+      hasPlayedThisSession()
+    ) {
       setSkipIntro(true);
     }
   }, []);

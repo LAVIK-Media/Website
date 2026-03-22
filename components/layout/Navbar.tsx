@@ -153,12 +153,12 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 300 }}
-              className="absolute right-0 top-0 bottom-0 w-72 bg-[#0A1411] border-l border-[#1C2B26] flex flex-col"
+              className="absolute right-0 top-0 bottom-0 w-72 bg-[#0A1411] border-l border-[#1C2B26] flex flex-col z-10"
             >
+              {/* Kein zweites Logo — vermeidet Doppelung mit dem festen Header-Logo */}
               <div className="flex items-center justify-between px-6 h-16 border-b border-[#1C2B26]">
-                <span className="text-lg font-display font-bold text-[#F2F5F4]">
-                  LAVIK
-                  <span className="text-[#1FBF8F] font-light">Media</span>
+                <span className="text-xs font-semibold uppercase tracking-widest text-[#6F8580]">
+                  Navigation
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}

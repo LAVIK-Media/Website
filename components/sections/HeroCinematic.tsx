@@ -30,6 +30,29 @@ export default function HeroCinematic() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
   const [srcIndex, setSrcIndex] = useState(0);
+  /** Touch / schmales Viewport: kein scroll-gekoppeltes Parallax — flüssiger, weniger Jank */
+  const [staticHeroMedia, setStaticHeroMedia] = useState(true);
+
+  useEffect(() => {
+    const update = () => {
+      const coarse =
+        typeof window !== "undefined" &&
+        window.matchMedia("(pointer: coarse)").matches;
+      const narrow = window.innerWidth < 1024;
+      setStaticHeroMedia(coarse || narrow);
+    };
+    update();
+    window.addEventListener("resize", update);
+    const mq =
+      typeof window !== "undefined"
+        ? window.matchMedia("(pointer: coarse)")
+        : null;
+    mq?.addEventListener("change", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      mq?.removeEventListener("change", update);
+    };
+  }, []);
 
   const showVideo =
     !reducedMotion && !videoFailed && HERO_VIDEO_SOURCES.length > 0;
@@ -68,21 +91,28 @@ export default function HeroCinematic() {
         {showVideo ? (
           <motion.div
             className="absolute inset-0 h-[115%] w-full -top-[7%]"
-            style={{ y: videoY, scale: videoScale }}
+            style={
+              staticHeroMedia || reducedMotion
+                ? undefined
+                : { y: videoY, scale: videoScale }
+            }
           >
             <video
               key={currentSrc}
               ref={videoRef}
               className="absolute left-1/2 top-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center"
               style={{
-                filter: "saturate(0.58) brightness(0.52) contrast(1.08)",
+                filter: staticHeroMedia
+                  ? "saturate(0.55) brightness(0.54) contrast(1.05)"
+                  : "saturate(0.58) brightness(0.52) contrast(1.08)",
               }}
               src={currentSrc}
               muted
               loop
               playsInline
               autoPlay
-              preload="metadata"
+              preload={staticHeroMedia ? "none" : "metadata"}
+              disablePictureInPicture
               onError={() => {
                 if (srcIndex < HERO_VIDEO_SOURCES.length - 1) {
                   setSrcIndex((i) => i + 1);
