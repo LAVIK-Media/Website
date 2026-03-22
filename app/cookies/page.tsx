@@ -108,14 +108,21 @@ export default function CookiesPage() {
                   2. Statistik (nur mit Einwilligung)
                 </h2>
                 <p>
-                  Statistik-Cookies oder vergleichbare Technologien werden auf
-                  dieser Website{" "}
+                  Webanalyse mit{" "}
+                  <strong className="text-[#F2F5F4] font-medium">Umami</strong>{" "}
+                  wird auf dieser Website{" "}
                   <strong className="text-[#F2F5F4] font-medium">
                     erst nach Ihrer ausdrücklichen Einwilligung
                   </strong>{" "}
-                  aktiviert. Derzeit werden keine Analyse-Skripte von Drittanbietern
-                  eingebunden; die Einstellung ist für künftige Erweiterungen
-                  vorgesehen.
+                  (Kategorie „Statistik“) geladen. Technische Details und
+                  Rechtsgrundlagen finden Sie in der{" "}
+                  <Link
+                    href="/datenschutz"
+                    className="text-[#1FBF8F] hover:text-[#2FD4A4] underline underline-offset-2"
+                  >
+                    Datenschutzerklärung
+                  </Link>{" "}
+                  unter „Webanalyse mit Umami“.
                 </p>
               </div>
 

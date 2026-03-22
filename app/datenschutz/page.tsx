@@ -162,10 +162,8 @@ export default function DatenschutzPage() {
                   <strong className="text-[#F2F5F4] font-medium">
                     Statistik:
                   </strong>{" "}
-                  Nicht notwendige Analyse-Tools werden erst geladen, wenn Sie
-                  der Kategorie „Statistik“ zustimmen (Opt-in). Derzeit sind im
-                  Code keine Drittanbieter-Tracking-Skripte eingebunden; die
-                  Einstellung ist vorbereitet.
+                  Webanalyse (Umami) wird erst geladen, wenn Sie der Kategorie
+                  „Statistik“ zustimmen (Opt-in). Details siehe Ziffer 5.
                 </p>
                 <p className="mt-3">
                   <Link
@@ -179,7 +177,35 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  5. Session-Speicher (sessionStorage)
+                  5. Webanalyse mit Umami
+                </h2>
+                <p>
+                  Diese Website nutzt{" "}
+                  <strong className="text-[#F2F5F4] font-medium">Umami</strong>
+                  , ein datenschutzfreundliches Analysetool. Umami setzt keine
+                  Cookies und erhebt keine personenbezogenen Daten. Es werden
+                  ausschließlich anonymisierte Nutzungsstatistiken (aufgerufene
+                  Seiten, Verweildauer, Herkunftsland) erfasst. Das Tracking
+                  erfolgt nur bei erteiltem Cookie-Consent (Kategorie
+                  „Statistik“ in unserem Einwilligungsdialog).
+                </p>
+                <p className="mt-3">
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Anbieter:
+                  </strong>{" "}
+                  Umami Software Inc.; die Daten werden in der EU gespeichert.
+                </p>
+                <p className="mt-3">
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Rechtsgrundlage:
+                  </strong>{" "}
+                  Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
+                  6. Session-Speicher (sessionStorage)
                 </h2>
                 <p>
                   Bestimmte Komfortfunktionen (z. B. Intro-Animation) können
@@ -203,7 +229,7 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  6. Kontaktformular
+                  7. Kontaktformular
                 </h2>
                 <p>
                   Wenn Sie unser Kontaktformular nutzen, verarbeiten wir die von
@@ -283,7 +309,7 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  7. Kontakt per E-Mail
+                  8. Kontakt per E-Mail
                 </h2>
                 <p>
                   Kontaktieren Sie uns direkt per E-Mail, verarbeiten wir die
@@ -306,16 +332,18 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  8. Empfänger und Auftragsverarbeiter
+                  9. Empfänger und Auftragsverarbeiter
                 </h2>
                 <p>
                   Eine Weitergabe an Dritte erfolgt nur, wenn sie zur
                   Vertragserfüllung oder Betreibung dieser Website erforderlich
                   ist, wir gesetzlich dazu verpflichtet sind oder Sie
-                  eingewilligt haben. Hosting (Cloudflare) und E-Mail-Übermittlung
-                  (Resend) erfolgen im Rahmen der Auftragsverarbeitung gemäß Art.
-                  28 DSGVO. Eine Weitergabe zu Werbezwecken ohne Ihre Einwilligung
-                  findet nicht statt.
+                  eingewilligt haben. Hosting (Cloudflare), E-Mail-Übermittlung
+                  (Resend) und — bei Einwilligung in Statistik — Webanalyse
+                  (Umami Software Inc.) erfolgen im Rahmen der gesetzlichen
+                  Vorgaben bzw. Auftragsverarbeitung gemäß Art. 28 DSGVO, soweit
+                  anwendbar. Eine Weitergabe zu Werbezwecken ohne Ihre
+                  Einwilligung findet nicht statt.
                 </p>
               </div>
 
@@ -345,7 +373,7 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  10. Ihre Rechte
+                  11. Ihre Rechte
                 </h2>
                 <p>Sie haben insbesondere das Recht auf:</p>
                 <ul className="list-disc pl-5 mt-3 space-y-1">
@@ -384,7 +412,7 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  11. Pflicht zur Bereitstellung
+                  12. Pflicht zur Bereitstellung
                 </h2>
                 <p>
                   Sie sind weder vertraglich noch gesetzlich verpflichtet, Daten
@@ -395,7 +423,7 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  12. Automatisierte Entscheidungen
+                  13. Automatisierte Entscheidungen
                 </h2>
                 <p>
                   Es findet kein ausschließlich automatisierter Entscheidungsprozess

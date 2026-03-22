@@ -1,6 +1,6 @@
 /**
  * Client-side cookie / storage consent for LAVIK Media.
- * Used by the banner, footer "Cookie-Einstellungen", and (later) analytics loaders.
+ * Used by the banner, footer "Cookie-Einstellungen", and Umami (statistics opt-in).
  */
 
 export const CONSENT_STORAGE_KEY = "lavik-cookie-consent-v1" as const;

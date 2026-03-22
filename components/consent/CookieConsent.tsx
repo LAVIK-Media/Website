@@ -190,8 +190,8 @@ export default function CookieConsent() {
                 <br />
                 <span className="text-[#6F8580] text-xs leading-relaxed">
                   Hilft uns zu verstehen, wie die Website genutzt wird. Wird
-                  erst nach Ihrer Einwilligung aktiviert (derzeit werden keine
-                  Analyse-Skripte eingebunden).
+                  erst nach Ihrer Einwilligung aktiviert (Webanalyse mit Umami,
+                  siehe Datenschutzerklärung).
                 </span>
               </span>
             </label>

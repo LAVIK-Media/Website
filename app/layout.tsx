@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import MouseGlow from "@/components/ui/MouseGlow";
 import CookieConsent from "@/components/consent/CookieConsent";
+import UmamiAnalytics from "@/components/consent/UmamiAnalytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -69,6 +70,7 @@ export default function RootLayout({
     <html lang="de" className={`${inter.variable} ${syne.variable}`}>
       <body className="bg-[#06060c] text-white antialiased">
         <MouseGlow />
+        <UmamiAnalytics />
         <CookieConsent />
         <Navbar />
         <main>{children}</main>
