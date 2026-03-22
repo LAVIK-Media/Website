@@ -38,31 +38,29 @@ export default function DatenschutzPage() {
                 <p className="mt-3 text-[#F2F5F4]">
                   LAVIK Media
                   <br />
-                  Musterstraße 1
+                  Kinkstraße 4
                   <br />
                   6330 Kufstein, Österreich
                 </p>
                 <p className="mt-3">
                   E-Mail:{" "}
                   <a
-                    href="mailto:service@lavik-media.com"
+                    href="mailto:kontakt@lavik-media.com"
                     className="text-[#1FBF8F] hover:text-[#2FD4A4] transition-colors"
                   >
-                    service@lavik-media.com
+                    kontakt@lavik-media.com
                   </a>
                 </p>
                 <p className="mt-3 text-xs text-[#6F8580]">
-                  Bitte ersetzen Sie „Musterstraße 1“ und ergänzen Sie die
-                  Rechtsform (z. B. Einzelunternehmen, GmbH), UID und
-                  Firmenbuchdaten im{" "}
+                  Weitere Pflichtangaben (z. B. Vertretungsberechtigung, UID)
+                  finden Sie im{" "}
                   <Link
                     href="/impressum"
                     className="text-[#1FBF8F] hover:text-[#2FD4A4] underline underline-offset-2"
                   >
                     Impressum
-                  </Link>{" "}
-                  vollständig – die Verarbeitung muss mit den dortigen Angaben
-                  übereinstimmen.
+                  </Link>
+                  .
                 </p>
               </div>
 
@@ -71,29 +69,59 @@ export default function DatenschutzPage() {
                   2. Hosting und technische Bereitstellung
                 </h2>
                 <p>
-                  Diese Website wird auf Servern eines Hosting-Anbieters
-                  betrieben. Beim Aufruf der Seite werden durch den Host
-                  automatisch Server-Logfiles verarbeitet, insbesondere IP-Adresse
-                  (kurzzeitig), Datum und Uhrzeit des Abrufs, angeforderte Datei,
-                  Referrer-URL, Browserkennung und Betriebssystem. Die
-                  Verarbeitung erfolgt zur Gewährleistung der Sicherheit (z. B.
-                  Missbrauchsbekämpfung) und Stabilität der Website sowie zur
-                  Fehleranalyse.
+                  Die Website wird über{" "}
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Cloudflare, Inc.
+                  </strong>{" "}
+                  (101 Townsend St, San Francisco, CA 94107, USA) bereitgestellt
+                  — insbesondere als{" "}
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Cloudflare Workers
+                  </strong>{" "}
+                  (Anwendungslogik),{" "}
+                  <strong className="text-[#F2F5F4] font-medium">CDN</strong>{" "}
+                  und Auslieferung statischer Inhalte (
+                  <strong className="text-[#F2F5F4] font-medium">Assets</strong>
+                  ). Beim Aufruf werden dabei technisch notwendige Daten
+                  verarbeitet, z. B. IP-Adresse (gekürzt oder verkürzt
+                  gespeichert je nach Konfiguration), Zeitstempel, angeforderte
+                  Ressource, User-Agent und ggf. Fehlerprotokolle — zur
+                  Bereitstellung, Sicherheit (z. B. Missbrauchsbekämpfung) und
+                  Stabilität des Dienstes.
                 </p>
                 <p className="mt-3">
                   <strong className="text-[#F2F5F4] font-medium">
                     Rechtsgrundlage:
                   </strong>{" "}
-                  Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
-                  sicheren und funktionsfähigen Webpräsenz). Soweit der Host als
-                  Auftragsverarbeiter eingesetzt ist, besteht ein Vertrag zur
-                  Auftragsverarbeitung gemäß Art. 28 DSGVO.
+                  Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherem,
+                  schnellem Betrieb der Website). Soweit Cloudflare für uns als{" "}
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Auftragsverarbeiter
+                  </strong>{" "}
+                  tätig ist, besteht ein Vertrag zur Auftragsverarbeitung gemäß
+                  Art. 28 DSGVO (Data Processing Agreement, DPA).
                 </p>
-                <p className="mt-3 text-xs text-[#6F8580]">
-                  <strong className="text-[#6F8580]">Hinweis:</strong> Tragen Sie
-                  hier den konkreten Anbieter ein (z. B. Vercel Inc., All-Inkl.,
-                  Hetzner) inkl. Sitz und ggf. EU-US Data Privacy Framework /
-                  Standardvertragsklauseln, falls Daten in Drittländer fließen.
+                <p className="mt-3">
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Drittlandübermittlung:
+                  </strong>{" "}
+                  Cloudflare hat Sitz in den USA. Die Übermittlung erfolgt auf
+                  Grundlage der Angemessenheitsbeschlüsse der EU-Kommission
+                  (z. B. EU-US Data Privacy Framework, soweit anwendbar) bzw.
+                  der in der DPA vereinbarten{" "}
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Standardvertragsklauseln
+                  </strong>{" "}
+                  und ergänzenden Maßnahmen. Details:{" "}
+                  <a
+                    href="https://www.cloudflare.com/cloudflare_customer_SCCs-German.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#1FBF8F] hover:text-[#2FD4A4] underline underline-offset-2"
+                  >
+                    Cloudflare — Auftragsverarbeitung / SCC
+                  </a>
+                  .
                 </p>
               </div>
 
@@ -154,8 +182,8 @@ export default function DatenschutzPage() {
                   5. Session-Speicher (sessionStorage)
                 </h2>
                 <p>
-                  Bestimmte Komfortfunktionen (z. B. Intro-Animation,
-                  Demo-Bereiche) können kurzfristig Informationen in{" "}
+                  Bestimmte Komfortfunktionen (z. B. Intro-Animation) können
+                  kurzfristig Informationen in{" "}
                   <code className="text-[11px] px-1 py-0.5 rounded bg-[#0F1F1A] border border-[#1C2B26]">
                     sessionStorage
                   </code>{" "}
@@ -175,72 +203,149 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  6. Kontaktformular und E-Mail-Kommunikation
+                  6. Kontaktformular
                 </h2>
                 <p>
-                  Wenn Sie das Kontaktformular nutzen, verarbeiten wir die von
-                  Ihnen eingegebenen Daten (z. B. Name, E-Mail, Nachricht,
-                  optionale Angaben) zur Bearbeitung Ihrer Anfrage.
+                  Wenn Sie unser Kontaktformular nutzen, verarbeiten wir die von
+                  Ihnen im Formular eingegebenen personenbezogenen Daten.
+                </p>
+                <ul className="list-disc pl-5 mt-3 space-y-2">
+                  <li>
+                    <strong className="text-[#F2F5F4] font-medium">
+                      Erhobene Daten (Pflichtfelder):
+                    </strong>{" "}
+                    Name, E-Mail-Adresse, Nachricht.
+                  </li>
+                  <li>
+                    <strong className="text-[#F2F5F4] font-medium">
+                      Zweck:
+                    </strong>{" "}
+                    Bearbeitung Ihrer Kontaktanfrage.
+                  </li>
+                  <li>
+                    <strong className="text-[#F2F5F4] font-medium">
+                      Rechtsgrundlage:
+                    </strong>{" "}
+                    Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher
+                    Maßnahmen auf Ihre Anfrage hin bzw. Vertragsanbahnung).
+                  </li>
+                  <li>
+                    <strong className="text-[#F2F5F4] font-medium">
+                      Speicherdauer:
+                    </strong>{" "}
+                    bis die Anfrage abschließend bearbeitet ist, sofern keine
+                    längeren gesetzlichen Aufbewahrungspflichten entgegenstehen
+                    (z. B. bei anschließender Geschäftsbeziehung und
+                    geschäftsrechtlichen Aufbewahrungsfristen).
+                  </li>
+                </ul>
+                <p className="mt-3">
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Freiwillige Angaben:
+                  </strong>{" "}
+                  Zusätzliche Felder (z. B. Unternehmen, Telefon, Branche,
+                  Art des Anliegens), sofern ausgefüllt, verarbeiten wir
+                  ebenfalls ausschließlich zur Bearbeitung Ihrer Anfrage —
+                  Rechtsgrundlage weiterhin Art. 6 Abs. 1 lit. b DSGVO.
+                </p>
+                <p className="mt-3">
+                  Die Übermittlung erfolgt verschlüsselt per HTTPS an unseren
+                  Server (Hosting siehe Ziffer 2).
+                </p>
+                <p className="mt-3">
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Dienstleister (E-Mail-Versand):
+                  </strong>{" "}
+                  Zum Versand der Anfrage per E-Mail setzen wir{" "}
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Resend Inc.
+                  </strong>{" "}
+                  (
+                  <a
+                    href="https://resend.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#1FBF8F] hover:text-[#2FD4A4] underline underline-offset-2"
+                  >
+                    resend.com
+                  </a>
+                  , Sitz u. a. USA) als{" "}
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Auftragsverarbeiter
+                  </strong>{" "}
+                  gemäß Art. 28 DSGVO ein. Mit Resend besteht ein Vertrag zur
+                  Auftragsverarbeitung; Daten können in Drittländer übermittelt
+                  werden — gestützt auf geeignete Garantien (z. B. EU-US Data
+                  Privacy Framework / Standardvertragsklauseln), wie in der
+                  jeweils aktuellen Dokumentation von Resend beschrieben.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
+                  7. Kontakt per E-Mail
+                </h2>
+                <p>
+                  Kontaktieren Sie uns direkt per E-Mail, verarbeiten wir die
+                  von Ihnen mitgeteilten Daten (mindestens Ihre E-Mail-Adresse
+                  sowie Inhalt und Metadaten der Nachricht) zur Bearbeitung der
+                  Anfrage.
                 </p>
                 <p className="mt-3">
                   <strong className="text-[#F2F5F4] font-medium">
                     Rechtsgrundlage:
                   </strong>{" "}
-                  Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen auf Ihre
-                  Anfrage hin) bzw. Art. 6 Abs. 1 lit. f DSGVO (Beantwortung
-                  allgemeiner Anfragen). Soweit eine ausdrückliche Einwilligung
-                  erforderlich ist (z. B. Newsletter – hier nicht angeboten),
-                  erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. a
-                  DSGVO.
+                  Art. 6 Abs. 1 lit. b DSGVO, soweit es um Anfragen im
+                  Zusammenhang mit Vertragsanbahnung oder -durchführung geht;
+                  andernfalls Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse
+                  an der Beantwortung von Anfragen). Die Daten werden gelöscht,
+                  sobald der Zweck entfällt und keine Aufbewahrungspflichten
+                  entgegenstehen.
                 </p>
-                <p className="mt-3">
+              </div>
+
+              <div>
+                <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
+                  8. Empfänger und Auftragsverarbeiter
+                </h2>
+                <p>
+                  Eine Weitergabe an Dritte erfolgt nur, wenn sie zur
+                  Vertragserfüllung oder Betreibung dieser Website erforderlich
+                  ist, wir gesetzlich dazu verpflichtet sind oder Sie
+                  eingewilligt haben. Hosting (Cloudflare) und E-Mail-Übermittlung
+                  (Resend) erfolgen im Rahmen der Auftragsverarbeitung gemäß Art.
+                  28 DSGVO. Eine Weitergabe zu Werbezwecken ohne Ihre Einwilligung
+                  findet nicht statt.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
+                  9. Drittlandübermittlungen
+                </h2>
+                <p>
+                  Soweit Anbieter mit Sitz außerhalb des Europäischen
+                  Wirtschaftsraums (EWR) eingesetzt werden (insbesondere{" "}
                   <strong className="text-[#F2F5F4] font-medium">
-                    Speicherdauer:
+                    Cloudflare
                   </strong>{" "}
-                  Daten aus Kontaktanfragen werden gelöscht, sobald der Zweck
-                  entfällt und keine gesetzlichen Aufbewahrungsfristen
-                  entgegenstehen (typischerweise nach Abschluss der
-                  Kommunikation, längstens jedoch nach den für Geschäftsbriefe
-                  geltenden Fristen, sofern relevant).
-                </p>
-                <p className="mt-3 text-xs text-[#6F8580]">
-                  <strong className="text-[#6F8580]">Technik:</strong> Die
-                  Übermittlung erfolgt verschlüsselt (HTTPS) an unseren Server;
-                  die Zustellung der Anfrage per E-Mail kann über einen
-                  Auftragsverarbeiter (z. B. Resend) erfolgen. Bitte ergänzen
-                  Sie den Auftragsverarbeitungsvertrag mit dem jeweiligen
-                  Anbieter in Ihrer Dokumentation.
+                  und{" "}
+                  <strong className="text-[#F2F5F4] font-medium">Resend</strong>{" "}
+                  in den USA), stellen wir sicher, dass ein angemessenes
+                  Datenschutzniveau besteht — etwa durch einen
+                  Angemessenheitsbeschluss der EU-Kommission (z. B. EU-US Data
+                  Privacy Framework) und/oder{" "}
+                  <strong className="text-[#F2F5F4] font-medium">
+                    Standardvertragsklauseln
+                  </strong>{" "}
+                  der EU-Kommission in Verbindung mit ergänzenden technischen
+                  und organisatorischen Maßnahmen, sofern erforderlich.
                 </p>
               </div>
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  7. Empfänger und Auftragsverarbeiter
-                </h2>
-                <p>
-                  Daten werden nur an Dritte weitergegeben, wenn dies gesetzlich
-                  erlaubt ist (z. B. Hosting, IT-Dienstleister als
-                  Auftragsverarbeiter mit AV-Vertrag). Eine Weitergabe zu
-                  Werbezwecken findet ohne Ihre Einwilligung nicht statt.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  8. Drittlandübermittlungen
-                </h2>
-                <p>
-                  Soweit Tools mit Sitz außerhalb des EWR eingesetzt werden
-                  (künftig z. B. US-Analytics), erfolgt dies nur unter den
-                  Voraussetzungen der Kapitel V DSGVO (Angemessenheitsbeschluss,
-                  geeignete Garantien, Ausnahmen). Aktuell sind keine solchen
-                  Dienste im Code aktiv.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  9. Ihre Rechte
+                  10. Ihre Rechte
                 </h2>
                 <p>Sie haben insbesondere das Recht auf:</p>
                 <ul className="list-disc pl-5 mt-3 space-y-1">
@@ -271,11 +376,15 @@ export default function DatenschutzPage() {
                     </a>
                   </li>
                 </ul>
+                <p className="mt-3">
+                  Zur Ausübung Ihrer Rechte wenden Sie sich an die unter Ziffer 1
+                  genannte E-Mail-Adresse.
+                </p>
               </div>
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  10. Pflicht zur Bereitstellung
+                  11. Pflicht zur Bereitstellung
                 </h2>
                 <p>
                   Sie sind weder vertraglich noch gesetzlich verpflichtet, Daten
@@ -286,7 +395,7 @@ export default function DatenschutzPage() {
 
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  11. Automatisierte Entscheidungen
+                  12. Automatisierte Entscheidungen
                 </h2>
                 <p>
                   Es findet kein ausschließlich automatisierter Entscheidungsprozess
@@ -299,12 +408,11 @@ export default function DatenschutzPage() {
                   <strong className="text-[#9BAFA8]">
                     Rechtlicher Hinweis:
                   </strong>{" "}
-                  Dieser Text beschreibt die aktuelle technische Umsetzung im
-                  Code (Stand siehe unten) und ersetzt keine individuelle
-                  Rechtsberatung. Lassen Sie die finale Fassung durch eine
-                  Fachperson prüfen, sobald Sie personenbezogene Daten in
-                  produktiven Prozessen verarbeiten, Newsletter einsetzen oder
-                  Tracking aktivieren.
+                  Dieser Text beschreibt die aktuelle technische und organisatorische
+                  Umsetzung (Stand siehe unten) und ersetzt keine individuelle
+                  Rechtsberatung. Bei Änderungen der Verarbeitung (z. B. neues
+                  Tracking, Newsletter) ist die Erklärung anzupassen; eine
+                  Prüfung durch eine Fachperson wird empfohlen.
                 </p>
               </div>
 

@@ -29,11 +29,9 @@ export default function ImpressumPage() {
                 </h2>
                 <p className="text-[#F2F5F4] font-medium">LAVIK Media</p>
                 <p className="mt-2">
-                  <span className="text-[#6F8580]">Rechtsform:</span>{" "}
-                  [z. B. Einzelunternehmen / GmbH – bitte eintragen]
+                  Vertretungsberechtigt: [Name / Inhaber:in – bitte eintragen]
                 </p>
-                <p>Vertretungsberechtigt: [Name / Geschäftsführer:in – bitte eintragen]</p>
-                <p>Anschrift: Musterstraße 1, 6330 Kufstein, Österreich</p>
+                <p>Anschrift: Kinkstraße 4, 6330 Kufstein, Österreich</p>
                 <p>UID-Nummer: [ATUxxxxxxx – bitte eintragen]</p>
                 <p>
                   Firmenbuch: [FB-Nummer, Gericht – bei Kapitalgesellschaft
@@ -52,10 +50,10 @@ export default function ImpressumPage() {
                 <p>
                   E-Mail:{" "}
                   <a
-                    href="mailto:service@lavik-media.com"
+                    href="mailto:kontakt@lavik-media.com"
                     className="text-[#1FBF8F] hover:text-[#2FD4A4] transition-colors"
                   >
-                    service@lavik-media.com
+                    kontakt@lavik-media.com
                   </a>
                 </p>
                 <p>Telefon: +43 (0) 5372 XXX XXX</p>

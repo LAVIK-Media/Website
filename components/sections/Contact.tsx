@@ -157,8 +157,8 @@ export default function Contact() {
                     {
                       icon: Mail,
                       label: "E-Mail",
-                      value: "service@lavik-media.com",
-                      href: "mailto:service@lavik-media.com",
+                      value: "kontakt@lavik-media.com",
+                      href: "mailto:kontakt@lavik-media.com",
                     },
                     {
                       icon: Phone,
