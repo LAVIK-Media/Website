@@ -28,6 +28,17 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export async function POST(req: Request) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
+    if (process.env.NODE_ENV === "development") {
+      console.info(
+        "[api/contact] RESEND_API_KEY fehlt — 200 ohne Versand (nur NODE_ENV=development)."
+      );
+      return NextResponse.json({
+        ok: true,
+        devMock: true,
+        message:
+          "Lokal: Es wurde keine E-Mail versendet. Trage RESEND_API_KEY in .env.local ein, um Resend zu testen.",
+      });
+    }
     return NextResponse.json(
       {
         message:

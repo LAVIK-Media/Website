@@ -74,6 +74,8 @@ export default function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  /** Nur Development: API antwortet ohne Resend (siehe app/api/contact) */
+  const [devMockSubmit, setDevMockSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [privacyAcknowledged, setPrivacyAcknowledged] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -94,6 +96,7 @@ export default function Contact() {
       });
       const data = (await res.json().catch(() => ({}))) as {
         message?: string;
+        devMock?: boolean;
       };
       if (!res.ok) {
         setError(
@@ -102,6 +105,7 @@ export default function Contact() {
         );
         return;
       }
+      setDevMockSubmit(Boolean(data.devMock));
       setSubmitted(true);
     } catch {
       setError(
@@ -225,11 +229,27 @@ export default function Contact() {
                     <CheckCircle2 className="w-8 h-8 text-[#1FBF8F]" />
                   </div>
                   <h3 className="text-xl font-display font-semibold text-[#F2F5F4] mb-2">
-                    Nachricht gesendet!
+                    {devMockSubmit
+                      ? "Nur lokal simuliert"
+                      : "Nachricht gesendet!"}
                   </h3>
                   <p className="text-[#9BAFA8] text-sm leading-relaxed">
-                    Danke für Ihre Anfrage. Wir melden uns innerhalb von 24
-                    Stunden bei Ihnen.
+                    {devMockSubmit ? (
+                      <>
+                        Ohne <code className="text-[#6F8580]">RESEND_API_KEY</code>{" "}
+                        wird in der Entwicklung keine E-Mail verschickt — die
+                        Live-Website nutzt den Schlüssel aus der Hosting-Umgebung.
+                        Kopiere{" "}
+                        <code className="text-[#6F8580]">.env.example</code> nach{" "}
+                        <code className="text-[#6F8580]">.env.local</code>, wenn du
+                        den Versand lokal testen willst.
+                      </>
+                    ) : (
+                      <>
+                        Danke für Ihre Anfrage. Wir melden uns innerhalb von 24
+                        Stunden bei Ihnen.
+                      </>
+                    )}
                   </p>
                 </div>
               ) : (
