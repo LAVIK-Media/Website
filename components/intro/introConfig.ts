@@ -18,9 +18,9 @@ export const INTRO_CONFIG = {
     preloadCount: 48, // preload all — it's only 48 frames and auto-plays fast
   },
   // Height of the scroll spacer for the intro scrub (in vh) — weniger = weniger Maus-/Trackpad-Weg
-  introScrollHeight: 260,
+  introScrollHeight: 135,
   // Duration for the auto-play transition (ms)
-  transitionDuration: 1200,
+  transitionDuration: 880,
   // Fade-out duration when transitioning to landing page (ms)
   fadeOutDuration: 500,
 } as const;

@@ -176,15 +176,16 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
     const spacer = scrollSpacerRef.current;
     if (!spacer) return;
 
+    let st: ScrollTrigger | null = null;
     const timer = setTimeout(() => {
       window.scrollTo(0, 0);
 
-      const trigger = ScrollTrigger.create({
+      st = ScrollTrigger.create({
         trigger: spacer,
         start: "top top",
         end: "bottom bottom",
         // Niedriger = direkter an der Scroll-Position (weniger „Nachziehen“), höher = weicher
-        scrub: 0.55,
+        scrub: 0.28,
         onUpdate: (self) => {
           introProgress.current = self.progress;
         },
@@ -192,11 +193,12 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
           startTransition();
         },
       });
-
-      return () => trigger.kill();
     }, 50);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      st?.kill();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
