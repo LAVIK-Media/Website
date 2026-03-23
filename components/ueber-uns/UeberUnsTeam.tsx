@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 
 export type UeberUnsTeamMember = {
   name: string;
@@ -61,6 +62,45 @@ const textBlockVariants = {
   },
 };
 
+function TeamPhoto({
+  src,
+  alt,
+  initials,
+}: {
+  src: string | null;
+  alt: string;
+  initials: string;
+}) {
+  const [hasError, setHasError] = useState(false);
+  const showImage = Boolean(src) && !hasError;
+
+  if (showImage) {
+    return (
+      <Image
+        src={src!}
+        alt={alt}
+        fill
+        className="pointer-events-none select-none object-cover"
+        sizes="(max-width: 640px) 100vw, 33vw"
+        draggable={false}
+        onError={() => setHasError(true)}
+        onContextMenu={(event) => event.preventDefault()}
+      />
+    );
+  }
+
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4">
+      <span className="select-none font-display text-2xl font-bold tracking-[0.25em] text-[#1FBF8F]/22 sm:text-3xl">
+        {initials}
+      </span>
+      <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#6F8580]">
+        Foto
+      </span>
+    </div>
+  );
+}
+
 export default function UeberUnsTeam({
   members,
 }: {
@@ -74,24 +114,11 @@ export default function UeberUnsTeam({
         {members.map((member) => (
           <article key={member.name} className="flex flex-col">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#0F1F1A] to-[#050706] ring-1 ring-white/[0.06]">
-              {member.imageSrc ? (
-                <Image
-                  src={member.imageSrc}
-                  alt={member.imageAlt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-              ) : (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4">
-                  <span className="select-none font-display text-2xl font-bold tracking-[0.25em] text-[#1FBF8F]/22 sm:text-3xl">
-                    {member.initials}
-                  </span>
-                  <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#6F8580]">
-                    Foto folgt
-                  </span>
-                </div>
-              )}
+              <TeamPhoto
+                src={member.imageSrc}
+                alt={member.imageAlt}
+                initials={member.initials}
+              />
             </div>
             <div className="mt-5">
               <h3 className="font-display text-lg font-semibold text-[#F2F5F4]">
@@ -129,24 +156,11 @@ export default function UeberUnsTeam({
             variants={photoFrameVariants}
             className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#0F1F1A] to-[#050706] ring-1 ring-white/[0.06] shadow-none transition-shadow duration-300 hover:shadow-[0_24px_48px_rgba(0,0,0,0.35)]"
           >
-            {member.imageSrc ? (
-              <Image
-                src={member.imageSrc}
-                alt={member.imageAlt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 100vw, 33vw"
-              />
-            ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4">
-                <span className="select-none font-display text-2xl font-bold tracking-[0.25em] text-[#1FBF8F]/22 sm:text-3xl">
-                  {member.initials}
-                </span>
-                <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#6F8580]">
-                  Foto folgt
-                </span>
-              </div>
-            )}
+            <TeamPhoto
+              src={member.imageSrc}
+              alt={member.imageAlt}
+              initials={member.initials}
+            />
           </motion.div>
 
           <motion.div variants={textBlockVariants} className="mt-5">

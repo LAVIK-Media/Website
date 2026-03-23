@@ -27,14 +27,13 @@ export const metadata: Metadata = {
     "LAVIK Media: ein kleines Team aus Kufstein – Jakob Vrabitsch, Linus Lang, Richard Kienpointner. Moderne Websites mit Substanz.",
 };
 
-/** Bilder optional: Dateien nach `public/team/` legen und `imageSrc` setzen. */
 const team = [
   {
     name: "Jakob Vrabitsch",
     role: "Lead Web-Entwicklung · Co-Lead",
     line: "Technische Architektur, sauberer Code, klare Umsetzung.",
     initials: "JV",
-    imageSrc: null as string | null,
+    imageSrc: "/team-private/jakob.webp" as string | null,
     imageAlt: "Jakob Vrabitsch, Web-Entwicklung",
   },
   {
@@ -42,7 +41,7 @@ const team = [
     role: "Finance & Sales · Co-Lead",
     line: "Zahlen, Angebote und partnerschaftlicher Vertrieb.",
     initials: "LL",
-    imageSrc: null as string | null,
+    imageSrc: "/team-private/linus.webp" as string | null,
     imageAlt: "Linus Lang, Finance und Sales",
   },
   {
@@ -50,7 +49,7 @@ const team = [
     role: "Sales & Kundenzufriedenheit",
     line: "Direkter Draht – Richard hat keinen Filter, nur ehrliche Worte.",
     initials: "RK",
-    imageSrc: null as string | null,
+    imageSrc: "/team-private/richard.webp" as string | null,
     imageAlt: "Richard Kienpointner, Sales und Kundenzufriedenheit",
   },
 ];
@@ -195,7 +194,7 @@ export default function UeberUnsPage() {
             </h2>
             <p className="mb-12 max-w-2xl text-sm leading-relaxed text-[#6F8580] md:text-base">
               Drei Namen, klare Rollen – Web, Finance & Vertrieb,
-              Kundenzufriedenheit. Hier entstehen später eure Fotos.
+              Kundenzufriedenheit.
             </p>
           </ScrollReveal>
           <UeberUnsTeam members={team} />

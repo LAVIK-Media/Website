@@ -7,6 +7,13 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/team-private/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, noimageindex, noarchive" },
+          { key: "Cache-Control", value: "private, no-store, no-cache, must-revalidate" },
+        ],
+      },
+      {
         source: "/:path*",
         headers: [
           { key: "X-Frame-Options", value: "DENY" },
