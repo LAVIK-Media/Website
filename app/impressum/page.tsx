@@ -29,7 +29,7 @@ export default function ImpressumPage() {
                 </h2>
                 <p className="text-[#F2F5F4] font-medium">LAVIK Media</p>
                 <p className="mt-2">
-                  Vertretungsberechtigt: Jakob Vrabtisch
+                  Vertretungsberechtigt: Jakob Vrabitsch
                 </p>
                 <p>Anschrift: Kinkstraße 4, 6330 Kufstein, Österreich</p>
               </div>
