@@ -31,6 +31,7 @@ export default function ImpressumPage() {
                 <p className="mt-2">
                   Vertretungsberechtigt: Jakob Vrabtisch
                 </p>
+                <p>Anschrift: Kinkstraße 4, 6330 Kufstein, Österreich</p>
               </div>
 
               <div>
