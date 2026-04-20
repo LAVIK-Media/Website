@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Impressum von LAVIK Media – Angaben gemäß § 5 ECG.",
+  description: "Impressum von LAVIK Media – Angaben gemäß § 5 TMG.",
 };
 
 export default function ImpressumPage() {
@@ -25,21 +25,11 @@ export default function ImpressumPage() {
             <div className="space-y-8 text-[#9BAFA8] text-sm leading-relaxed">
               <div>
                 <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  Angaben gemäß § 5 ECG
+                  Angaben gemäß § 5 TMG
                 </h2>
                 <p className="text-[#F2F5F4] font-medium">LAVIK Media</p>
                 <p className="mt-2">
-                  Vertretungsberechtigt: [Name / Inhaber:in – bitte eintragen]
-                </p>
-                <p>Anschrift: Kinkstraße 4, 6330 Kufstein, Österreich</p>
-                <p>UID-Nummer: [ATUxxxxxxx – bitte eintragen]</p>
-                <p>
-                  Firmenbuch: [FB-Nummer, Gericht – bei Kapitalgesellschaft
-                  eintragen]
-                </p>
-                <p>
-                  Mitglied der Wirtschaftskammer: [z. B. Wirtschaftskammer Tirol
-                  – optional]
+                  Vertretungsberechtigt: Jakob Vrabtisch
                 </p>
               </div>
 
@@ -56,7 +46,7 @@ export default function ImpressumPage() {
                     jakob@lavik-media.com
                   </a>
                 </p>
-                <p>Telefon: +43 (0) 5372 XXX XXX</p>
+                <p>Telefon: +49 176 74727029</p>
               </div>
 
               <div>
@@ -66,29 +56,6 @@ export default function ImpressumPage() {
                 <p>
                   Webdesign, Webentwicklung, digitale Kommunikation und
                   verwandte Dienstleistungen.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-base font-display font-semibold text-[#F2F5F4] mb-3">
-                  Gewerbe- und berufsrechtliche Vorschriften
-                </h2>
-                <p>
-                  Gewerbebehörde: [zuständige Bezirkshauptmannschaft / Magistrat
-                  – bitte eintragen]
-                </p>
-                <p className="mt-2">
-                  Einsichtnahme in die geltenden berufsrechtlichen Regelungen:
-                  [g. f. Gewerbeordnung – RIS unter{" "}
-                  <a
-                    href="https://www.ris.bka.gv.at"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#1FBF8F] hover:text-[#2FD4A4]"
-                  >
-                    www.ris.bka.gv.at
-                  </a>
-                  ]
                 </p>
               </div>
 
@@ -134,17 +101,14 @@ export default function ImpressumPage() {
                 </h2>
                 <p>
                   Alle auf dieser Website veröffentlichten Inhalte (Texte,
-                  Bilder, Grafiken etc.) unterliegen dem österreichischen
-                  Urheberrecht. Eine Vervielfältigung oder Verwendung dieser
-                  Materialien ist ohne ausdrückliche Zustimmung nicht
-                  gestattet.
+                  Bilder, Grafiken etc.) unterliegen dem Urheberrecht. Eine
+                  Vervielfältigung oder Verwendung dieser Materialien ist ohne
+                  ausdrückliche Zustimmung nicht gestattet.
                 </p>
               </div>
 
               <div className="rounded-xl border border-[#1C2B26] bg-[#0F1F1A]/30 p-4 text-xs text-[#6F8580]">
                 <p>
-                  Platzhalter in eckigen Klammern oder mit „bitte eintragen“
-                  müssen vor dem Livegang durch korrekte Angaben ersetzt werden.
                   Die{" "}
                   <Link
                     href="/datenschutz"

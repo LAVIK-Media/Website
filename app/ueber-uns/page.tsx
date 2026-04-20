@@ -24,17 +24,17 @@ import {
 export const metadata: Metadata = {
   title: "Über uns",
   description:
-    "LAVIK Media: ein kleines Team aus Kufstein – Jakob Vrabitsch, Linus Lang, Richard Kienpointner. Moderne Websites mit Substanz.",
+    "LAVIK Media: ein kleines Team aus Kufstein – Jakob Vrabtisch, Linus Lang, Richard Kienpointner. Moderne Websites mit Substanz.",
 };
 
 const team = [
   {
-    name: "Jakob Vrabitsch",
+    name: "Jakob Vrabtisch",
     role: "Lead Web-Entwicklung · Co-Lead",
     line: "Technische Architektur, sauberer Code, klare Umsetzung.",
     initials: "JV",
     imageSrc: "/team-private/jakob.webp" as string | null,
-    imageAlt: "Jakob Vrabitsch, Web-Entwicklung",
+    imageAlt: "Jakob Vrabtisch, Web-Entwicklung",
   },
   {
     name: "Linus Lang",

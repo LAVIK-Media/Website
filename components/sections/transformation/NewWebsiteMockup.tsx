@@ -624,7 +624,7 @@ export default function NewWebsiteMockup() {
           }}
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
-            <Phone size={8} /> 05224 / 12 34 56
+            <Phone size={8} /> +49 176 74727029
           </span>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
             <Mail size={8} /> info@inntal.at

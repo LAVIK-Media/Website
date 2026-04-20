@@ -163,8 +163,8 @@ export default function Contact() {
                     {
                       icon: Phone,
                       label: "Telefon",
-                      value: "+43 (0) 5372 XXX XXX",
-                      href: "tel:+435372000000",
+                      value: "+49 176 74727029",
+                      href: "tel:+4917674727029",
                     },
                     {
                       icon: MapPin,
@@ -286,7 +286,7 @@ export default function Contact() {
                       id="phone"
                       label="Telefon (optional)"
                       type="tel"
-                      placeholder="+43 000 000 000"
+                      placeholder="+49 176 74727029"
                       value={form.phone}
                       onChange={set("phone")}
                     />
