@@ -521,7 +521,7 @@ export default function OldWebsiteMockup() {
             willChange: "transform, opacity",
           }}
         >
-          © 2009 Konditorei Inntal — Alle Rechte vorbehalten | Tel: +49 176 74727029
+          © 2009 Konditorei Inntal — Alle Rechte vorbehalten | Tel: 0211 87973998680
         </div>
 
         <div
