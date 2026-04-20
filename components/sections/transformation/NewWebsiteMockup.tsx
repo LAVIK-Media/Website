@@ -624,7 +624,7 @@ export default function NewWebsiteMockup() {
           }}
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
-            <Phone size={8} /> 0211 87973998680
+            <Phone size={8} /> +49 211 87973998680
           </span>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
             <Mail size={8} /> info@inntal.at

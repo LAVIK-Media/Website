@@ -163,7 +163,7 @@ export default function Contact() {
                     {
                       icon: Phone,
                       label: "Telefon",
-                      value: "0211 87973998680",
+                      value: "+49 211 87973998680",
                       href: "tel:+4921187973998680",
                     },
                     {
@@ -286,7 +286,7 @@ export default function Contact() {
                       id="phone"
                       label="Telefon (optional)"
                       type="tel"
-                      placeholder="0211 87973998680"
+                      placeholder="+49 211 87973998680"
                       value={form.phone}
                       onChange={set("phone")}
                     />
