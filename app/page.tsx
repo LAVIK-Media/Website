@@ -1,7 +1,6 @@
 import IntroAnimation from "@/components/intro/IntroAnimation";
 import HeroCinematic from "@/components/sections/HeroCinematic";
 import TrustStrip from "@/components/sections/TrustStrip";
-import TransformationExperience from "@/components/sections/TransformationExperience";
 import WhyLavik from "@/components/sections/WhyLavik";
 import Process from "@/components/sections/Process";
 import Portfolio from "@/components/sections/Portfolio";
@@ -15,7 +14,6 @@ export default function HomePage() {
     <IntroAnimation>
       <HeroCinematic />
       <TrustStrip />
-      <TransformationExperience />
       <WhyLavik />
       <Process />
       <Portfolio />

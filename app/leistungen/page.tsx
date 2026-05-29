@@ -15,7 +15,7 @@ import {
 export const metadata: Metadata = {
   title: "Leistungen & Pakete",
   description:
-    "Transparente Pakete von 899 € bis Business+ – Webdesign & Entwicklung für Tirol. Custom-Projekte auf Anfrage. LAVIK Media.",
+    "Pakete von Starter bis Business+ – Webdesign & Entwicklung für Tirol. Individuelle Angebote nach kostenlosem Erstgespräch. LAVIK Media.",
 };
 
 type Tier = {
@@ -118,30 +118,12 @@ const tiers: Tier[] = [
 ];
 
 const upsells = [
-  {
-    title: "SEO-Setup komplett",
-    range: "+300 € – 800 €",
-  },
-  {
-    title: "Texte (Copywriting)",
-    range: "+200 € – 1.000 €",
-  },
-  {
-    title: "Wartung / Hosting (monatlich)",
-    range: "29 € – 99 € / Monat",
-  },
-  {
-    title: "Schnellere Lieferung (Express)",
-    range: "+20 – 30 %",
-  },
-  {
-    title: "Mehrsprachigkeit",
-    range: "+300 € – 1.000 €",
-  },
-  {
-    title: "Content-Upload (Bilder, Texte einpflegen)",
-    range: "+150 € – 500 €",
-  },
+  { title: "SEO-Setup komplett" },
+  { title: "Texte (Copywriting)" },
+  { title: "Wartung / Hosting (monatlich)" },
+  { title: "Schnellere Lieferung (Express)" },
+  { title: "Mehrsprachigkeit" },
+  { title: "Content-Upload (Bilder, Texte einpflegen)" },
 ];
 
 const accentStyles: Record<
@@ -185,39 +167,14 @@ const accentStyles: Record<
   },
 };
 
-function formatEur(amount: number) {
-  return new Intl.NumberFormat("de-AT", {
-    style: "currency",
-    currency: "EUR",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
-
-function PriceDisplay({
-  priceEur,
-  priceNote,
-  accent,
-}: {
-  priceEur: number | null;
-  priceNote?: string;
-  accent: Tier["accent"];
-}) {
+function PriceDisplay({ accent }: { accent: Tier["accent"] }) {
   const a = accentStyles[accent];
-  if (priceEur === null) {
-    return (
-      <div className="mt-4">
-        <span
-          className={`font-display text-2xl font-bold tracking-tight sm:text-3xl ${a.price}`}
-        >
-          {priceNote ?? "Auf Anfrage"}
-        </span>
-      </div>
-    );
-  }
   return (
     <div className="mt-4">
-      <span className="font-display text-3xl font-bold tracking-tight text-[#F2F5F4] sm:text-4xl">
-        {formatEur(priceEur)}
+      <span
+        className={`font-display text-2xl font-bold tracking-tight sm:text-3xl ${a.price}`}
+      >
+        Auf Anfrage
       </span>
     </div>
   );
@@ -252,11 +209,7 @@ function CustomTierWideCard({ tier }: { tier: Tier }) {
           <p className="mt-2 text-sm leading-relaxed text-[#9BAFA8] sm:text-base">
             {tier.tagline}
           </p>
-          <PriceDisplay
-            priceEur={tier.priceEur}
-            priceNote={tier.priceNote}
-            accent={tier.accent}
-          />
+          <PriceDisplay accent={tier.accent} />
         </div>
         <div className="min-w-0 flex-1 border-t border-[#1C2B26]/80 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
           <p className="mb-4 text-[11px] font-semibold uppercase tracking-wider text-[#6F8580]">
@@ -300,12 +253,12 @@ export default function LeistungenPage() {
                 Leistungen
               </div>
               <h1 className="mb-5 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-bold leading-[1.1] tracking-tight text-[#F2F5F4]">
-                Pakete mit{" "}
-                <span className="gradient-text">festen Preisen</span>
+                Pakete für{" "}
+                <span className="gradient-text">jedes Vorhaben</span>
               </h1>
               <p className="max-w-2xl text-lg leading-relaxed text-[#9BAFA8]">
-                Transparent von Starter bis Business+ – und individuelle
-                Großprojekte ohne Online-Preis, dafür mit klarem Gespräch.
+                Von Starter bis Business+ und individuellen Großprojekten – das
+                passende Angebot stimmen wir in einem persönlichen Gespräch ab.
               </p>
             </div>
           </ScrollReveal>
@@ -352,11 +305,7 @@ export default function LeistungenPage() {
                       <p className="mt-2 text-sm leading-relaxed text-[#9BAFA8]">
                         {tier.tagline}
                       </p>
-                      <PriceDisplay
-                        priceEur={tier.priceEur}
-                        priceNote={tier.priceNote}
-                        accent={tier.accent}
-                      />
+                      <PriceDisplay accent={tier.accent} />
                       <ul className="mt-6 flex flex-col gap-2.5 border-t border-[#1C2B26]/80 pt-6">
                         {tier.features.map((f) => (
                           <li
@@ -382,8 +331,8 @@ export default function LeistungenPage() {
           </div>
           <ScrollReveal blur={6} className="mt-8">
             <p className="text-center text-sm text-[#6F8580]">
-              Alle Preise verstehen sich als Richtwerte; finale Leistung und
-              Umfang stimmen wir im Erstgespräch mit Ihnen ab.
+              Finale Leistung und Umfang stimmen wir individuell im
+              kostenlosen Erstgespräch mit Ihnen ab.
             </p>
           </ScrollReveal>
         </div>
@@ -407,12 +356,10 @@ export default function LeistungenPage() {
           <div className="mx-auto grid max-w-3xl gap-3 sm:grid-cols-2">
             {upsells.map((u, i) => (
               <ScrollReveal key={u.title} delay={i * 0.04} blur={6}>
-                <div className="flex items-center justify-between gap-4 rounded-xl border border-[#1C2B26]/90 bg-[#0a1210]/50 px-4 py-3.5">
+                <div className="flex items-center gap-3 rounded-xl border border-[#1C2B26]/90 bg-[#0a1210]/50 px-4 py-3.5">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#1FBF8F]/85" />
                   <span className="text-sm font-medium text-[#E8EFEC]">
                     {u.title}
-                  </span>
-                  <span className="shrink-0 font-mono text-xs text-[#1FBF8F]/85">
-                    {u.range}
                   </span>
                 </div>
               </ScrollReveal>
