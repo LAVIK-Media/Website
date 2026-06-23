@@ -72,8 +72,8 @@ export default function FinalCTA() {
                 {/* Mini trust note */}
                 <div className="mt-8 pt-8 border-t border-[#1A2622]">
                   <p className="text-xs text-[#6F8580]">
-                    Für lokale Unternehmen in Kufstein, Tirol und Umgebung ·
-                    Individuelle Umsetzung · Keine Standardlösungen
+                    Individuelle Umsetzung · Keine Standardlösungen ·
+                    Persönlicher Ansprechpartner
                   </p>
                 </div>
               </div>

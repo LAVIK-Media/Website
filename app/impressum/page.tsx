@@ -47,7 +47,7 @@ export default function ImpressumPage() {
                     jakob@lavik-media.com
                   </a>
                 </p>
-                <p>Telefon: +49 211 87973998680</p>
+                <p>Telefon: +49 157 92523149</p>
               </div>
 
               <div>

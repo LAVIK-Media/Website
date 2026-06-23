@@ -15,7 +15,7 @@ import {
 export const metadata: Metadata = {
   title: "Leistungen & Pakete",
   description:
-    "Pakete von Starter bis Business+ – Webdesign & Entwicklung für Tirol. Individuelle Angebote nach kostenlosem Erstgespräch. LAVIK Media.",
+    "Pakete von Starter bis Business+ – individuelle Webauftritte, technisch sauber umgesetzt und persönlich betreut. Angebote nach kostenlosem Erstgespräch.",
 };
 
 type Tier = {

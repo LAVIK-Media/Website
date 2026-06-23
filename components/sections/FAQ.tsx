@@ -9,11 +9,11 @@ import { motion, AnimatePresence } from "framer-motion";
 const faqs = [
   {
     q: "Was kostet eine professionelle Website?",
-    a: "Der Preis hängt vom Umfang Ihres Projekts ab – von der fokussierten Landingpage bis zum vollständigen Unternehmensauftritt mit mehreren Seiten und individuellen Funktionen. Wir erstellen nach einem kostenlosen Erstgespräch ein transparentes, auf Ihr Projekt zugeschnittenes Angebot.",
+    a: "Der Preis hängt vom Umfang ab: von der fokussierten Landingpage bis zum vollständigen Unternehmensauftritt mit mehreren Seiten und individuellen Funktionen. Nach einem kostenlosen Erstgespräch bekommen Sie ein transparentes, auf Ihr Projekt zugeschnittenes Angebot.",
   },
   {
     q: "Wie lange dauert die Erstellung einer Website?",
-    a: "Ein typisches Projekt dauert je nach Umfang zwischen 3 und 8 Wochen. Wir arbeiten strukturiert und kommunizieren transparent über Zeitplan und Fortschritt – so bleiben Sie immer auf dem Laufenden.",
+    a: "Ein typisches Projekt dauert je nach Umfang zwischen 3 und 8 Wochen. Wir arbeiten strukturiert und kommunizieren transparent über Zeitplan und Fortschritt, sodass Sie immer auf dem Laufenden sind.",
   },
   {
     q: "Was benötige ich als Kunde, um zu starten?",
@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "Bleibt die Website nach dem Launch wartbar?",
-    a: "Ja, absolut. Wir bieten Wartungs- und Hosting-Pakete an, damit Ihre Website dauerhaft aktuell, sicher und performant bleibt. Auf Wunsch können Sie kleinere Änderungen auch selbst vornehmen – wir richten das entsprechend ein.",
+    a: "Ja, absolut. Wir bieten Wartungs- und Hosting-Pakete an, damit Ihre Website dauerhaft aktuell, sicher und schnell bleibt. Auf Wunsch können Sie kleinere Änderungen auch selbst vornehmen, wir richten das entsprechend ein.",
   },
   {
     q: "Arbeitet LAVIK Media auch mit Unternehmen außerhalb von Tirol?",

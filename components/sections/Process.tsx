@@ -13,7 +13,7 @@ const steps = [
     number: "02",
     icon: Layers,
     title: "Strategie & Konzept",
-    desc: "Auf Basis Ihrer Ziele entwickeln wir ein klares Konzept – Seitenstruktur, inhaltliche Schwerpunkte, visuellen Ansatz und technische Anforderungen.",
+    desc: "Auf Basis Ihrer Ziele entwickeln wir ein klares Konzept: Seitenstruktur, inhaltliche Schwerpunkte, visueller Ansatz und technische Anforderungen.",
     duration: "1–2 Wochen",
   },
   {
@@ -52,7 +52,7 @@ export default function Process() {
             </h2>
             <p className="text-[#9BAFA8] text-lg leading-relaxed">
               Strukturiert, transparent und effizient – vom ersten Gespräch bis
-              zum fertigen Webauftritt.
+              zur fertigen Website.
             </p>
           </div>
         </ScrollReveal>

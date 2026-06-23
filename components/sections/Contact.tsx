@@ -163,8 +163,8 @@ export default function Contact() {
                     {
                       icon: Phone,
                       label: "Telefon",
-                      value: "+49 211 87973998680",
-                      href: "tel:+4921187973998680",
+                      value: "+49 157 92523149",
+                      href: "tel:+4915792523149",
                     },
                     {
                       icon: MapPin,
@@ -286,7 +286,7 @@ export default function Contact() {
                       id="phone"
                       label="Telefon (optional)"
                       type="tel"
-                      placeholder="+49 211 87973998680"
+                      placeholder="+49 157 92523149"
                       value={form.phone}
                       onChange={set("phone")}
                     />

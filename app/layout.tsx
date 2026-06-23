@@ -27,8 +27,10 @@ const localBusinessJsonLd = {
   "@type": "LocalBusiness",
   name: "LAVIK Media",
   url: SITE_URL,
-  description: "Webdesign & Entwicklung für Unternehmen in Kufstein, Tirol",
+  description:
+    "Webdesign und Entwicklung mit Substanz – individuell, technisch sauber, persönlich betreut.",
   email: "jakob@lavik-media.com",
+  telephone: "+4915792523149",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Kufstein",
@@ -40,20 +42,20 @@ const localBusinessJsonLd = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
+    default: "LAVIK Media – Webdesign & Entwicklung mit Substanz",
     template: "%s | LAVIK Media",
   },
   description:
-    "LAVIK Media gestaltet und entwickelt professionelle, moderne Websites für lokale Unternehmen in Kufstein, Tirol und Umgebung. Individuelles Webdesign, saubere Entwicklung, langfristige Betreuung.",
+    "Wir gestalten und entwickeln Websites, die zu Ihrem Unternehmen passen – individuell, technisch sauber und nach dem Launch persönlich betreut. Aus Tirol für Kund:innen im gesamten DACH-Raum.",
   keywords: [
+    "Webdesign",
+    "Webentwicklung",
+    "Website erstellen lassen",
     "Webdesign Tirol",
     "Webdesign Kufstein",
-    "Webentwicklung Kufstein",
-    "Website erstellen lassen",
-    "professionelle Website",
-    "lokale Webdesign Agentur",
-    "Next.js Agentur Tirol",
+    "Next.js Agentur",
+    "individuelle Website",
+    "Webagentur DACH",
   ],
   authors: [{ name: "LAVIK Media" }],
   creator: "LAVIK Media",
@@ -62,25 +64,23 @@ export const metadata: Metadata = {
     locale: "de_AT",
     url: SITE_URL,
     siteName: "LAVIK Media",
-    title:
-      "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
+    title: "LAVIK Media – Webdesign & Entwicklung mit Substanz",
     description:
-      "Professionelle Webauftritte für lokale Unternehmen. Individuelles Design, saubere Technik, persönliche Betreuung.",
+      "Individuelle Webauftritte: durchdachtes Design, saubere Technik, persönliche Betreuung nach dem Launch.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "LAVIK Media – Webdesign & Entwicklung, Kufstein Tirol",
+        alt: "LAVIK Media – Webdesign und Entwicklung",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "LAVIK Media – Hochwertige Websites für Unternehmen in Kufstein, Tirol",
+    title: "LAVIK Media – Webdesign & Entwicklung mit Substanz",
     description:
-      "Professionelle Webauftritte für lokale Unternehmen. Individuelles Design, saubere Technik, persönliche Betreuung.",
+      "Individuelle Webauftritte: durchdachtes Design, saubere Technik, persönliche Betreuung nach dem Launch.",
     images: ["/og-image.png"],
   },
   robots: {

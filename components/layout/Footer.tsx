@@ -59,9 +59,9 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mb-6 max-w-xs text-sm leading-relaxed text-[#6F8580]">
-              Hochwertige Websites für lokale Unternehmen in Kufstein, Tirol und
-              Umgebung.
-              Individuelles Design, saubere Technik, persönliche Betreuung.
+              Webdesign und Entwicklung mit Substanz. Individuelles Design,
+              saubere Technik, persönliche Betreuung – aus Tirol für Kund:innen
+              im gesamten DACH-Raum.
             </p>
             <motion.div
               whileHover={reduced ? {} : { scale: 1.02 }}

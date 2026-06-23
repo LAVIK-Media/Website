@@ -20,7 +20,7 @@ const services = [
   {
     icon: Code2,
     title: "Webentwicklung",
-    desc: "Sauberer, performanter Code – entwickelt für Geschwindigkeit, Sicherheit und einfache Pflege.",
+    desc: "Sauberer, performanter Code, entwickelt für Geschwindigkeit, Sicherheit und einfache Pflege.",
     tag: "Technik",
     color: "secondary",
   },
@@ -41,14 +41,14 @@ const services = [
   {
     icon: Search,
     title: "SEO-Basis",
-    desc: "Technisch solide Grundlage für bessere Auffindbarkeit in Google – von Beginn an direkt mitgedacht.",
+    desc: "Technisch solide Grundlage für bessere Auffindbarkeit in Google, von Anfang an mitgedacht.",
     tag: "Sichtbarkeit",
     color: "muted",
   },
   {
     icon: Shield,
     title: "Wartung & Hosting",
-    desc: "Zuverlässiges Hosting und laufende Wartung – damit Ihre Website dauerhaft aktuell, sicher und performant bleibt.",
+    desc: "Zuverlässiges Hosting und laufende Wartung, damit Ihre Website dauerhaft aktuell, sicher und schnell bleibt.",
     tag: "Langfristig",
     color: "secondary",
   },

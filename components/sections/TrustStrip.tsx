@@ -15,12 +15,12 @@ const trustItems = [
   {
     icon: Code2,
     title: "Sauber entwickelt",
-    desc: "Next.js, TypeScript und Tailwind – modern, schnell und wartbar.",
+    desc: "Next.js, TypeScript und Tailwind. Modern, schnell, wartbar.",
   },
   {
     icon: MapPin,
-    title: "Lokal in Kufstein & Tirol",
-    desc: "Regionale Nähe mit modernem, überregionalem Anspruch.",
+    title: "Aus Tirol für DACH",
+    desc: "Standort Tirol, Projekte in ganz Österreich, Deutschland und der Schweiz.",
   },
 ];
 

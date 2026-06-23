@@ -13,19 +13,19 @@ const differentiators = [
     number: "02",
     icon: Link2,
     title: "Design und Technik aus einer Hand.",
-    desc: "Von der Idee über das Design bis zur Entwicklung und dem Launch – Sie haben einen Ansprechpartner, keine anonyme Agenturstruktur.",
+    desc: "Von der Idee über das Design bis zur Entwicklung und dem Launch: Sie haben einen Ansprechpartner statt einer anonymen Agenturstruktur.",
   },
   {
     number: "03",
     icon: HeartHandshake,
     title: "Langfristig dabei – nicht nur beim Start.",
-    desc: "Wir verschwinden nicht nach dem Launch. Updates, Anpassungen und Support sind Standard – keine Extra-Überraschungen.",
+    desc: "Wir verschwinden nicht nach dem Launch. Updates, Anpassungen und Support sind Standard, keine Extra-Überraschungen.",
   },
   {
     number: "04",
     icon: BarChart3,
     title: "Sichtbarkeit und Performance von Anfang an.",
-    desc: "Jede Website wird mit SEO-Grundlagen, schnellen Ladezeiten und korrekter Technik ausgeliefert – nicht als nachträgliches Add-on.",
+    desc: "Jede Website wird mit SEO-Grundlagen, schnellen Ladezeiten und sauberer Technik ausgeliefert, nicht als nachträgliches Add-on.",
   },
 ];
 

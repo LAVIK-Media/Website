@@ -341,7 +341,7 @@ function IntroAnimationInner({ children }: { children: React.ReactNode }) {
                     textShadow: "0 2px 20px rgba(0,0,0,0.5)",
                   }}
                 >
-                  Hochwertige Websites für Unternehmen in Kufstein & Tirol
+                  Webdesign · Entwicklung · Betreuung
                 </p>
               </div>
             </div>
