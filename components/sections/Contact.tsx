@@ -107,6 +107,13 @@ export default function Contact() {
     service: "",
     message: "",
   });
+  /**
+   * Honeypot-Feld. Wird im DOM versteckt (visually hidden + aria-hidden +
+   * tabindex=-1 + autocomplete=off). Echte Nutzer sehen / füllen es nicht aus,
+   * Spam-Bots fast immer. Auf dem Server wird die Anfrage dann stillschweigend
+   * verworfen.
+   */
+  const [honeypot, setHoneypot] = useState("");
   const [submitted, setSubmitted] = useState(false);
   /** Nur Development: API antwortet ohne Resend (siehe app/api/contact) */
   const [devMockSubmit, setDevMockSubmit] = useState(false);
@@ -126,7 +133,7 @@ export default function Contact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website: honeypot }),
       });
       const data = (await res.json().catch(() => ({}))) as {
         message?: string;
@@ -287,7 +294,32 @@ export default function Contact() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                  {/* Honeypot — visually hidden, von Menschen nicht ausfüllbar. */}
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      left: "-9999px",
+                      width: 1,
+                      height: 1,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <label htmlFor="website-url">
+                      Website (bitte freilassen)
+                    </label>
+                    <input
+                      id="website-url"
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
+
                   <div className="grid sm:grid-cols-2 gap-5">
                     <InputField
                       id="name"

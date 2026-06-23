@@ -8,7 +8,18 @@ const MAX = {
   industry: 80,
   service: 80,
   message: 8000,
+  /** Hartes Limit für den eingehenden Request-Body (Bytes). */
+  body: 64 * 1024,
 } as const;
+
+/**
+ * Domains die /api/contact aufrufen dürfen (Origin / Referer Header).
+ * Schützt vor naivem CSRF & Cross-Origin-Abuse von anderen Webseiten.
+ */
+const ALLOWED_ORIGINS = new Set<string>([
+  "https://lavik-media.com",
+  "https://www.lavik-media.com",
+]);
 
 function escapeHtml(s: string): string {
   return s
@@ -23,9 +34,57 @@ function trimStr(v: unknown, max: number): string {
   return v.trim().slice(0, max);
 }
 
+/** Entfernt CR/LF und Kontrollzeichen — verhindert Header-Injection im Subject. */
+function sanitizeHeaderValue(s: string): string {
+  return s.replace(/[\r\n\t\u0000-\u001f\u007f]/g, " ").trim();
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+function isOriginAllowed(req: Request): boolean {
+  const origin = req.headers.get("origin");
+  const referer = req.headers.get("referer");
+  const isDev = process.env.NODE_ENV === "development";
+
+  const matchHost = (value: string): boolean => {
+    try {
+      const url = new URL(value);
+      const composed = `${url.protocol}//${url.host}`;
+      if (ALLOWED_ORIGINS.has(composed)) return true;
+      if (isDev && (url.hostname === "localhost" || url.hostname === "127.0.0.1")) {
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  };
+
+  if (origin) return matchHost(origin);
+  if (referer) return matchHost(referer);
+  return false;
+}
+
 export async function POST(req: Request) {
+  if (!isOriginAllowed(req)) {
+    return NextResponse.json({ message: "Ungültige Anfrage." }, { status: 403 });
+  }
+
+  if (req.headers.get("content-type")?.includes("application/json") !== true) {
+    return NextResponse.json(
+      { message: "Ungültiger Inhaltstyp." },
+      { status: 415 }
+    );
+  }
+
+  const contentLength = Number(req.headers.get("content-length") ?? "0");
+  if (contentLength > MAX.body) {
+    return NextResponse.json(
+      { message: "Anfrage zu groß." },
+      { status: 413 }
+    );
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     if (process.env.NODE_ENV === "development") {
@@ -51,9 +110,22 @@ export async function POST(req: Request) {
     );
   }
 
+  let raw: string;
+  try {
+    raw = await req.text();
+  } catch {
+    return NextResponse.json({ message: "Ungültige Anfrage." }, { status: 400 });
+  }
+  if (raw.length > MAX.body) {
+    return NextResponse.json(
+      { message: "Anfrage zu groß." },
+      { status: 413 }
+    );
+  }
+
   let json: unknown;
   try {
-    json = await req.json();
+    json = JSON.parse(raw);
   } catch {
     return NextResponse.json({ message: "Ungültige Anfrage." }, { status: 400 });
   }
@@ -63,6 +135,13 @@ export async function POST(req: Request) {
   }
 
   const o = json as Record<string, unknown>;
+
+  // Honeypot: Bots füllen oft alle Felder aus; ein für Menschen unsichtbares
+  // Feld "website" bleibt leer. Wenn es etwas enthält, ist es Spam.
+  // Wir tun so als wäre alles ok (200), aber senden nichts.
+  if (typeof o.website === "string" && o.website.trim().length > 0) {
+    return NextResponse.json({ ok: true });
+  }
 
   const name = trimStr(o.name, MAX.name);
   const company = trimStr(o.company, MAX.company);
@@ -120,6 +199,11 @@ export async function POST(req: Request) {
     <p style="white-space:pre-wrap">${escapeHtml(message)}</p>
   `.trim();
 
+  const subject = sanitizeHeaderValue(`Kontaktanfrage Website — ${name}`).slice(
+    0,
+    180
+  );
+
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -130,7 +214,7 @@ export async function POST(req: Request) {
       from,
       to: [to],
       reply_to: email,
-      subject: `Kontaktanfrage Website — ${name}`,
+      subject,
       text: lines,
       html,
     }),
