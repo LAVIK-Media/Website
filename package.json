@@ -9,7 +9,8 @@
     "deploy": "opennextjs-cloudflare deploy",
     "start": "next start",
     "lint": "eslint .",
-    "copy-hero-video": "powershell -ExecutionPolicy Bypass -File ./scripts/copy-hero-video.ps1"
+    "copy-hero-video": "powershell -ExecutionPolicy Bypass -File ./scripts/copy-hero-video.ps1",
+    "prepare-hero-media": "powershell -ExecutionPolicy Bypass -File ./scripts/prepare-hero-media.ps1"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.2",

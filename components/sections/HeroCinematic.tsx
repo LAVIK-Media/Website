@@ -11,27 +11,41 @@ import { ArrowRight } from "lucide-react";
 import ShimmerButton from "@/components/ui/ShimmerButton";
 import { easeOutExpo } from "@/lib/motion";
 
-/** Default: R2 (Cloudflare). Override with NEXT_PUBLIC_HERO_VIDEO_URL. Local fallbacks optional. */
-const HERO_VIDEO_R2 =
-  "https://pub-63f8284b4d2e4e3eb41bbfdaf0287946.r2.dev/aerial-view-of-austrian-mountain-range-in-vorarlbe-2025-12-17-23-40-55-utc.mp4";
+/**
+ * Media-Quellen für das Hero.
+ *
+ * Erwartet im R2-Bucket (Root):
+ *   - hero.mp4         (H.264, ~5 MB, 1080p, ohne Audio, faststart)
+ *   - hero-poster.jpg  (~300 KB, Erstbild ohne Wartezeit)
+ *
+ * Production-Empfehlung: NEXT_PUBLIC_MEDIA_BASE_URL auf die Custom Domain
+ * setzen (z. B. https://cdn.lavik-media.com) — bringt vollen CDN-Edge-Cache
+ * und kein Rate-Limit. Ohne Env-Var wird die r2.dev-Subdomain als Fallback
+ * verwendet (funktioniert, aber rate-limited).
+ */
+const MEDIA_BASE = (process.env.NEXT_PUBLIC_MEDIA_BASE_URL ?? "").replace(
+  /\/+$/,
+  ""
+);
 
-const HERO_VIDEO_SOURCES = [
-  process.env.NEXT_PUBLIC_HERO_VIDEO_URL,
-  HERO_VIDEO_R2,
-  "/Video/hero.mp4",
-  "/videos/hero-alpine.mp4",
-  "https://videos.pexels.com/video-files/10976054/10976054-hd_1920_1080_25fps.mp4",
-  "https://videos.pexels.com/video-files/10976054/10976054-hd_1280_720_25fps.mp4",
-].filter(Boolean) as string[];
+const FALLBACK_R2_BASE =
+  "https://pub-63f8284b4d2e4e3eb41bbfdaf0287946.r2.dev";
+
+const BASE = MEDIA_BASE || FALLBACK_R2_BASE;
+
+const HERO_VIDEO_MP4 = `${BASE}/hero.mp4`;
+const HERO_POSTER = `${BASE}/hero-poster.jpg`;
 
 export default function HeroCinematic() {
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
-  const [srcIndex, setSrcIndex] = useState(0);
-  /** Touch / schmales Viewport: kein scroll-gekoppeltes Parallax — flüssiger, weniger Jank */
-  const [staticHeroMedia, setStaticHeroMedia] = useState(true);
+  /**
+   * Touch / schmales Viewport: kein Video laden, kein Parallax.
+   * Auf Mobile reicht das Poster komplett — spart > 10 MB Bandbreite.
+   */
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
     const update = () => {
@@ -39,7 +53,16 @@ export default function HeroCinematic() {
         typeof window !== "undefined" &&
         window.matchMedia("(pointer: coarse)").matches;
       const narrow = window.innerWidth < 1024;
-      setStaticHeroMedia(coarse || narrow);
+      const saveData =
+        typeof navigator !== "undefined" &&
+        "connection" in navigator &&
+        // @ts-expect-error - NetworkInformation API ist nicht überall typisiert
+        (navigator.connection?.saveData === true ||
+          // @ts-expect-error
+          navigator.connection?.effectiveType === "2g" ||
+          // @ts-expect-error
+          navigator.connection?.effectiveType === "slow-2g");
+      setIsMobile(coarse || narrow || saveData);
     };
     update();
     window.addEventListener("resize", update);
@@ -54,9 +77,8 @@ export default function HeroCinematic() {
     };
   }, []);
 
-  const showVideo =
-    !reducedMotion && !videoFailed && HERO_VIDEO_SOURCES.length > 0;
-  const currentSrc = HERO_VIDEO_SOURCES[srcIndex] ?? "";
+  /** Video nur auf Desktop, ohne Reduced-Motion-Präferenz und solange kein Fehler */
+  const showVideo = !reducedMotion && !videoFailed && !isMobile;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -68,9 +90,9 @@ export default function HeroCinematic() {
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || reducedMotion || !showVideo) return;
+    if (!v || !showVideo) return;
     v.play().catch(() => {});
-  }, [reducedMotion, currentSrc, showVideo]);
+  }, [showVideo]);
 
   const animate = (delay: number, y = 40) =>
     reducedMotion
@@ -81,51 +103,56 @@ export default function HeroCinematic() {
           transition: { duration: 0.78, delay, ease: easeOutExpo },
         };
 
+  const mediaFilter = isMobile
+    ? "saturate(0.55) brightness(0.54) contrast(1.05)"
+    : "saturate(0.58) brightness(0.52) contrast(1.08)";
+
   return (
     <section
       ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#060a09]"
     >
-      {/* Cinematic background: video or cold abstract fallback */}
+      {/* Cinematic background: poster + optional video, oder Fallback */}
       <div className="absolute inset-0 z-0 overflow-hidden">
+        {/*
+         * Poster IMMER sofort anzeigen. Vorteil: Null Wartezeit, das Bild ist
+         * da, sobald HTML geparsed ist. Wenn das Video lädt, deckt es das
+         * Poster ab — pixelperfekt selber Ausschnitt.
+         */}
+        <div
+          className="absolute inset-0 h-full w-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${HERO_POSTER})`,
+            filter: mediaFilter,
+          }}
+          aria-hidden="true"
+        />
+
         {showVideo ? (
           <motion.div
             className="absolute inset-0 h-[115%] w-full -top-[7%]"
-            style={
-              staticHeroMedia || reducedMotion
-                ? undefined
-                : { y: videoY, scale: videoScale }
-            }
+            style={reducedMotion ? undefined : { y: videoY, scale: videoScale }}
           >
             <video
-              key={currentSrc}
               ref={videoRef}
               className="absolute left-1/2 top-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center"
-              style={{
-                filter: staticHeroMedia
-                  ? "saturate(0.55) brightness(0.54) contrast(1.05)"
-                  : "saturate(0.58) brightness(0.52) contrast(1.08)",
-              }}
-              src={currentSrc}
+              style={{ filter: mediaFilter }}
+              poster={HERO_POSTER}
               muted
               loop
               playsInline
               autoPlay
-              preload={staticHeroMedia ? "none" : "metadata"}
+              preload="metadata"
               disablePictureInPicture
-              onError={() => {
-                if (srcIndex < HERO_VIDEO_SOURCES.length - 1) {
-                  setSrcIndex((i) => i + 1);
-                } else {
-                  setVideoFailed(true);
-                }
-              }}
-            />
+              onError={() => setVideoFailed(true)}
+            >
+              <source src={HERO_VIDEO_MP4} type="video/mp4" />
+            </video>
           </motion.div>
         ) : null}
 
-        {/* Abstract alpine fallback — no photo look, cold & minimal */}
-        {!showVideo ? (
+        {/* Falls Poster UND Video fehlen (Reduced-Motion + R2 down): kühler Verlauf */}
+        {reducedMotion ? (
           <div
             className="absolute inset-0"
             aria-hidden="true"
@@ -139,7 +166,7 @@ export default function HeroCinematic() {
           />
         ) : null}
 
-        {/* Einheitlicher Grade: kühles Grün + Lesbarkeit, weniger Layer */}
+        {/* Einheitlicher Grade: kühles Grün + Lesbarkeit */}
         <div
           className="absolute inset-0 bg-[#1a2e24]/[0.14] mix-blend-soft-light"
           aria-hidden="true"
