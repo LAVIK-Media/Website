@@ -24,6 +24,40 @@ const services = [
   "Ich bin noch unentschlossen",
 ];
 
+const CONTACT_EMAIL = "jakob@lavik-media.com";
+
+/**
+ * Baut einen mailto: Link mit den Form-Daten als Pre-Filled Body.
+ * Wird als Fallback genutzt, wenn der Resend-Versand scheitert.
+ */
+function buildMailtoFallback(form: {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  industry: string;
+  service: string;
+  message: string;
+}): string {
+  const subject = `Kontaktanfrage Website${form.name ? ` — ${form.name}` : ""}`;
+  const body = [
+    form.name && `Name: ${form.name}`,
+    form.company && `Unternehmen: ${form.company}`,
+    form.email && `E-Mail: ${form.email}`,
+    form.phone && `Telefon: ${form.phone}`,
+    form.industry && `Branche: ${form.industry}`,
+    form.service && `Anliegen: ${form.service}`,
+    "",
+    "Nachricht:",
+    form.message || "",
+  ]
+    .filter((v) => v !== false && v !== null && v !== undefined)
+    .join("\n");
+  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+    subject
+  )}&body=${encodeURIComponent(body)}`;
+}
+
 function InputField({
   label,
   id,
@@ -370,12 +404,21 @@ export default function Contact() {
                   </div>
 
                   {error && (
-                    <p
+                    <div
                       role="alert"
-                      className="text-sm text-red-300/95 text-center bg-red-950/25 border border-red-900/40 rounded-xl px-4 py-3 leading-relaxed"
+                      className="rounded-xl border border-red-900/40 bg-red-950/25 px-4 py-3"
                     >
-                      {error}
-                    </p>
+                      <p className="text-sm leading-relaxed text-red-300/95">
+                        {error}
+                      </p>
+                      <a
+                        href={buildMailtoFallback(form)}
+                        className="mt-3 inline-flex items-center gap-2 rounded-lg border border-red-800/50 bg-red-950/40 px-3 py-2 text-xs font-medium text-red-100 transition-colors hover:bg-red-900/40"
+                      >
+                        <Mail className="h-3.5 w-3.5" />
+                        Direkt per E-Mail schicken
+                      </a>
+                    </div>
                   )}
 
                   <div className="flex items-start gap-3 rounded-xl border border-[#1C2B26] bg-[#0F1F1A]/30 p-4">

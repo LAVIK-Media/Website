@@ -39,10 +39,13 @@ export async function POST(req: Request) {
           "Lokal: Es wurde keine E-Mail versendet. Trage RESEND_API_KEY in .env.local ein, um Resend zu testen.",
       });
     }
+    console.error(
+      "[api/contact] RESEND_API_KEY fehlt im Worker. Secret setzen mit: wrangler secret put RESEND_API_KEY"
+    );
     return NextResponse.json(
       {
         message:
-          "E-Mail-Versand ist nicht konfiguriert. Bitte RESEND_API_KEY in der Umgebung setzen.",
+          "Der Versand ist gerade nicht verfügbar. Schreiben Sie uns bitte direkt an jakob@lavik-media.com – wir melden uns innerhalb von 24 Stunden.",
       },
       { status: 503 }
     );
